@@ -60,6 +60,12 @@ Frontend (HTML/CSS/JS)
 ↓
 Database
 
+                                         Architectural Desgin
+
+
+                                         <img width="461" height="331" alt="image" src="https://github.com/user-attachments/assets/b37e6799-6358-4e12-97e7-8df0c150ea90" />
+
+
 
                                            HOME PAGE
 
