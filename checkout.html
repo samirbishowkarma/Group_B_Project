@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout | Technologia</title>
+  <link rel="icon" href="images/favicon.png" type="image/png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/checkout.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="index.html" class="logo">Technologia</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="marketplace.html">Marketplace</a></li>
+        <li><a href="sell.html">Sell</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="checkout.html" aria-current="page">Checkout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="checkout-page">
+    <h1>Checkout</h1>
+
+    <div class="checkout-grid">
+
+      <!-- Order summary: -->
+      <section class="order-summary" aria-labelledby="order-summary-heading">
+        <h2 id="order-summary-heading">Your Order</h2>
+
+        <ul id="cart-items" class="cart-items">
+          <!-- JS will inject <li> items here -->
+        </ul>
+
+        <p id="cart-empty-message" class="cart-empty-message" hidden>
+          Your cart is empty. <a href="marketplace.html">Browse the marketplace</a> to add components.
+        </p>
+
+        <div class="cart-total-row">
+          <span>Total</span>
+          <span id="cart-total">£0.00</span>
+        </div>
+      </section>
+
+      <!-- Checkout form: Validation  -->
+      <section class="checkout-form-section" aria-labelledby="checkout-form-heading">
+        <h2 id="checkout-form-heading"> Delivery &amp; Payment Details</h2>
+
+        <form id="checkout-form" novalidate>
+
+          <fieldset>
+            <legend>Contact &amp; Delivery</legend>
+
+            <div class="form-field">
+              <label for="full-name">Full Name</label>
+              <input type="text" id="full-name" name="fullName" autocomplete="name" required />
+              <span class="error-message" id="full-name-error" role="alert"></span>
+            </div>
+
+            <div class="form-field">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" autocomplete="email" required />
+              <span class="error-message" id="email-error" role="alert"></span>
+            </div>
+
+            <div class="form-field">
+              <label for="address">Delivery Address</label>
+              <textarea id="address" name="address" autocomplete="street-address" required></textarea>
+              <span class="error-message" id="address-error" role="alert"></span>
+            </div>
+
+            <div class="form-field">
+              <label for="postcode">Postcode</label>
+              <input type="text" id="postcode" name="postcode" autocomplete="postal-code" required />
+              <span class="error-message" id="postcode-error" role="alert"></span>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Payment ( No real payment is processed- its demo only)</legend>
+
+            <div class="form-field">
+              <label for="card-name">Name on Card</label>
+              <input type="text" id="card-name" name="cardName" autocomplete="cc-name" required />
+              <span class="error-message" id="card-name-error" role="alert"></span>
+            </div>
+
+            <div class="form-field">
+              <label for="card-number">Card Number</label>
+              <input type="text" id="card-number" name="cardNumber" inputmode="numeric" autocomplete="cc-number" maxlength="19" placeholder="0000 0000 0000 0000" required />
+              <span class="error-message" id="card-number-error" role="alert"></span>
+            </div>
+
+            <div class="form-field-row">
+              <div class="form-field">
+                <label for="card-expiry">Expiry (MM/YY)</label>
+                <input type="text" id="card-expiry" name="cardExpiry" autocomplete="cc-exp" placeholder="MM/YY" required />
+                <span class="error-message" id="card-expiry-error" role="alert"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="card-cvc">CVC</label>
+                <input type="text" id="card-cvc" name="cardCvc" inputmode="numeric" autocomplete="cc-csc" maxlength="4" required />
+                <span class="error-message" id="card-cvc-error" role="alert"></span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Live region so screen-reader users hear validation/order status without losing focus -->
+          <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
+
+          <button type="submit" class="btn-primary" id="place-order-btn">Place Order</button>
+        </form>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Technologia.Built for Client-Side Development Coursework Two.</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>
