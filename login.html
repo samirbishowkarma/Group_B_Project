@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in — Technologia</title>
+  
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="home.html"><span class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.6v2"/><circle cx="12" cy="2" r="1" fill="currentColor" stroke="none"/><rect x="4.5" y="6.6" width="15" height="11.2" rx="4"/><rect x="7.4" y="10.2" width="9.2" height="3.3" rx="1.65" fill="currentColor" stroke="none"/><path d="M2.6 10.9v3M21.4 10.9v3"/><path d="M10 17.8v3M14 17.8v3"/></svg></span>Techno<b>logia</b></a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="home.html">Home</a>
+        <a href="shop.html">Shop</a>
+
+        <a href="sell.html">Sell</a>
+        
+      </nav>
+    </div>
+  </header>
+
+  <main class="auth-shell">
+    <div class="auth-card">
+      <div class="brand brand--center"><span class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.6v2"/><circle cx="12" cy="2" r="1" fill="currentColor" stroke="none"/><rect x="4.5" y="6.6" width="15" height="11.2" rx="4"/><rect x="7.4" y="10.2" width="9.2" height="3.3" rx="1.65" fill="currentColor" stroke="none"/><path d="M2.6 10.9v3M21.4 10.9v3"/><path d="M10 17.8v3M14 17.8v3"/></svg></span>Techno<b>logia</b></div>
+      <p class="auth-intro" id="authIntro">Welcome back — sign in to your account.</p>
+
+      <div class="tabs"><button data-tab="login" class="active">Sign in</button><button data-tab="register">Create account</button></div>
+
+      <form id="loginForm" novalidate>
+        <div class="field-group field-group--tight"><label for="li-email">Email</label><input class="field" type="email" id="li-email" placeholder="you@example.com"><span class="err" data-for="li-email"></span></div>
+        <div class="field-group field-group--tight"><label for="li-pass">Password</label><input class="field" type="password" id="li-pass" placeholder="Your password"><span class="err" data-for="li-pass"></span></div>
+        <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
+      <form id="registerForm" novalidate hidden>
+        <div class="field-group field-group--tight"><label for="rg-name">Full name</label><input class="field" type="text" id="rg-name" placeholder="Jane Maker"><span class="err" data-for="rg-name"></span></div>
+        <div class="field-group field-group--tight"><label for="rg-email">Email</label><input class="field" type="email" id="rg-email" placeholder="you@example.com"><span class="err" data-for="rg-email"></span></div>
+        <div class="field-group field-group--tight"><label for="rg-pass">Password</label><input class="field" type="password" id="rg-pass" placeholder="At least 6 characters"><span class="err" data-for="rg-pass"></span></div>
+        <div class="field-group field-group--tight"><label for="rg-confirm">Confirm password</label><input class="field" type="password" id="rg-confirm" placeholder="Re-enter password"><span class="err" data-for="rg-confirm"></span></div>
+        <button class="btn btn-primary btn-block" type="submit">Create account</button>
+      </form>
+
+      <p class="auth-note">Accounts are stored locally in your browser for this demo.</p>
+    </div>
+  </main>
+
+  <div class="toast-host"></div>
+
+</body>
+</html>
