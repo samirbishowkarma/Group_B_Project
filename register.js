@@ -33,7 +33,13 @@
           '<div style="margin-top:24px;display:flex;gap:22px;flex-wrap:wrap;color:var(--muted);font-size:.9rem;"><span>Fast UK delivery</span><span>7-day returns</span><span>Secure checkout</span></div>' +
         '</div>'
       );
-       
+      var $q = $("#qty");
+      $("#minus").on("click", function () { $q.val(Math.max(1, (+$q.val() || 1) - 1)); });
+      $("#plus").on("click", function () { $q.val((+$q.val() || 1) + 1); });
+      $q.on("change", function () { if (+this.value < 1 || isNaN(+this.value)) this.value = 1; });
+      $("#addBtn").on("click", function () { TG.addToCart(p.id, Math.max(1, +$q.val() || 1)); TG.toast("Added " + $q.val() + " to cart", "ok"); });
+      var rel = TG.all().filter(function (x) { return x.cat === p.cat && x.id !== p.id; }).slice(0, 4);
+      if (rel.length) { $("#relatedWrap").removeAttr("hidden"); var $r = $("#related"); rel.forEach(function (x) { $r.append(TG.cardHTML(x)); }); $(".card.reveal").addClass("in"); }
     }
   });
 })(jQuery);
