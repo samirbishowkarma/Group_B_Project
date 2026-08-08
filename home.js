@@ -31,7 +31,16 @@
 
       if (window.tgObserve) window.tgObserve();
 
-
+      $(".num[data-count]").each(function () {
+        var $el = $(this), target = +$el.data("count"), start = null;
+        function step(ts) {
+          if (!start) start = ts;
+          var p = Math.min((ts - start) / 1600, 1);
+          $el.text(Math.floor(p * target).toLocaleString() + (p === 1 ? "+" : ""));
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
 
 
     }
