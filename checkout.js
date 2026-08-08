@@ -179,3 +179,52 @@ function validateForm() {
  
   return errors;
 }
+
+/**
+ * Handles the checkout form submission: prevents the default page
+ * reload, validates every field, and either shows errors or
+ * completes a (simulated) order.
+ */
+function handleCheckoutSubmit(event) {
+  event.preventDefault(); // stop the browser's default form submit/reload
+ 
+  clearErrors();
+ 
+  const cart = getCart();
+  const $status = $("#form-status");
+ 
+  if (cart.length === 0) {
+    $status
+      .removeClass("success")
+      .addClass("error")
+      .text("Your cart is empty — add something from the marketplace first.");
+    return;
+  }
+ 
+  const errors = validateForm();
+ 
+  if (errors.length > 0) {
+    errors.forEach(function (err) {
+      showFieldError(err.fieldId, err.message);
+    });
+ 
+    $status
+      .removeClass("success")
+      .addClass("error")
+      .text(
+        "Please fix " +
+          errors.length +
+          " field" +
+          (errors.length > 1 ? "s" : "") +
+          " below."
+      );
+ 
+    // Move focus to the first invalid field — helps keyboard and
+    // screen-reader users go straight to the problem instead of
+    // hunting for it.
+    $("#" + errors[0].fieldId).trigger("focus");
+    return;
+  }
+ 
+  completeOrder(cart);
+}
