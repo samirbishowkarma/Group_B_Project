@@ -21,6 +21,18 @@
       if (window.tgObserve) window.tgObserve();
     });
 
+    $('#overviewPanel').html(
+      '<div class="panel-block"><h2>Overview</h2><p>Top-rated maker supplying quality sensors, robotics components, and IoT modules with fast shipping and real support.</p></div>'
+    );
 
+    $('#listingsPanel').html(
+      '<div class="product-grid">' + TG.listings().map(function (item) { return TG.cardHTML(item); }).join('') + '</div>'
+    );
+
+    $('#projectsPanel').html(
+      '<div class="panel-block"><h2>Projects</h2><p>Coming soon: a modular sensors starter pack, smart greenhouse monitor, and robotics build guides.</p></div>'
+    );
+
+    if (window.tgObserve) window.tgObserve();
   });
 })(jQuery);
