@@ -84,9 +84,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .nav-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; }
 .icon-btn { position: relative; width: 46px; height: 46px; border-radius: 12px; border: 1px solid var(--line-2); background: rgba(255,255,255,.03); display: grid; place-items: center; color: var(--ink); transition: transform .2s, border-color .2s, color .2s, box-shadow .2s; }
 .icon-btn:hover { transform: translateY(-2px); border-color: var(--brand); color: var(--brand); box-shadow: 0 0 22px rgba(45,212,255,.2); }
-.cart-badge { position: absolute; top: -7px; right: -7px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 999px; background: var(--grad-warm); color: #fff; font-size: .72rem; font-weight: 700; display: grid; place-items: center; transform: scale(0); transition: transform .3s var(--ease); }
-.cart-badge.show { transform: scale(1); }
-.cart-badge.bump { animation: bump .4s var(--ease); }
 @keyframes bump { 0%,100% { transform: scale(1);} 40% { transform: scale(1.55);} }
 .nav-toggle { display: none; }
 
