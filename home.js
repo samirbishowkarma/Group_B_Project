@@ -42,7 +42,12 @@
         requestAnimationFrame(step);
       });
 
-
+      $("#newsForm").on("submit", function (e) {
+        e.preventDefault();
+        var $i = $(this).find("input");
+        if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($i.val())) { TG.toast("You're subscribed!", "ok"); $i.val(""); }
+        else { TG.toast("Enter a valid email", "err"); }
+      });
     }
   });
 })(jQuery);
