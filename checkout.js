@@ -145,3 +145,19 @@ const VALIDATORS = {
     return null;
   },
 };
+
+/** Clears all error messages and .has-error states in the form. */
+function clearErrors() {
+  $(".error-message").text("");
+  $(".form-field").removeClass("has-error");
+}
+ 
+/**
+ * Shows an error message under a given field and marks its
+ * .form-field as errored (checkout.css styles this with a red border).
+ */
+function showFieldError(fieldId, message) {
+  $("#" + fieldId + "-error").text(message);
+  $("#" + fieldId).closest(".form-field").addClass("has-error");
+}
+ 
