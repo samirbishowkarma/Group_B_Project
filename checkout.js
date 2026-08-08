@@ -85,3 +85,63 @@ function renderCartSummary() {
 
   $total.text(formatCurrency(grandTotal));
 }
+ 
+const VALIDATORS = {
+  "full-name": function (value) {
+    if (!value.trim()) return "Please enter your full name.";
+    return null;
+  },
+ 
+  email: function (value) {
+    if (!value.trim()) return "Please enter your email address.";
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(value)) return "Enter a valid email address.";
+    return null;
+  },
+ 
+  address: function (value) {
+    if (!value.trim()) return "Please enter a delivery address.";
+    return null;
+  },
+ 
+  postcode: function (value) {
+    if (!value.trim()) return "Please enter a postcode.";
+    const postcodePattern = /^[A-Za-z0-9]{2,4}\s?[A-Za-z0-9]{3}$/;
+    if (!postcodePattern.test(value.trim())) return "Enter a valid postcode.";
+    return null;
+  },
+ 
+  "card-name": function (value) {
+    if (!value.trim()) return "Please enter the name on the card.";
+    return null;
+  },
+ 
+  "card-number": function (value) {
+    const digitsOnly = value.replace(/\s/g, "");
+    if (!digitsOnly) return "Please enter a card number.";
+    if (!/^\d{13,19}$/.test(digitsOnly)) {
+      return "Card number should be 13–19 digits.";
+    }
+    return null;
+  },
+ 
+  "card-expiry": function (value) {
+    const match = value.trim().match(/^(\d{2})\/(\d{2})$/);
+    if (!match) return "Use MM/YY format.";
+ 
+    const month = parseInt(match[1], 10);
+    const year = parseInt(match[2], 10) + 2000;
+    if (month < 1 || month > 12) return "Enter a valid month.";
+ 
+    const now = new Date();
+    const expiryDate = new Date(year, month); // first of month AFTER expiry
+    if (expiryDate <= now) return "This card has expired.";
+ 
+    return null;
+  },
+ 
+  "card-cvc": function (value) {
+    if (!/^\d{3,4}$/.test(value.trim())) return "CVC should be 3–4 digits.";
+    return null;
+  },
+};
