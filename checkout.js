@@ -160,4 +160,22 @@ function showFieldError(fieldId, message) {
   $("#" + fieldId + "-error").text(message);
   $("#" + fieldId).closest(".form-field").addClass("has-error");
 }
+ /**
+ * Runs every validator against the current form values.
+ * Returns an array of { fieldId, message } for each invalid field
+ * (empty array means the form is fully valid).
+ */
+function validateForm() {
+  const errors = [];
  
+  Object.keys(VALIDATORS).forEach(function (fieldId) {
+    const value = $("#" + fieldId).val() || "";
+    const errorMessage = VALIDATORS[fieldId](value);
+ 
+    if (errorMessage) {
+      errors.push({ fieldId: fieldId, message: errorMessage });
+    }
+  });
+ 
+  return errors;
+}
