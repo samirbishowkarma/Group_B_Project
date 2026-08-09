@@ -1,0 +1,93 @@
+
+
+home.html
+
+main,, Footer
+
+<meta viewport> Makes page fit mobile screens properly (no auto zoom-out).
+
+<meta description> Text shown in Google search results. No visual effect on page.
+
+<script> in <head> Runs before page loads. Used here to define tgImgErr() early so it's ready before any image can fail.
+
+onerror="tgImgErr(this)" (on <img>) Runs JS the moment that image fails to load. this = that image. Removes broken src, shows dark gradient instead of broken icon.
+
+data-* attributes (e.g. data-count, data-cat) Custom storage, invisible on page. Does nothing alone — JS reads it later (e.g. animate a counter to 12400, or filter images by category).
+
+aria-label Text screen readers announce (used when icon has no visible text).
+
+aria-hidden="true" Hides element from screen readers only. Still visible normally.
+
+Inline <svg> Vector icon drawn in HTML.
+
+viewBox="0 0 24 24" = internal grid the icon is drawn on.
+stroke="currentColor" = icon color follows the CSS color property.
+<path d="..."> = drawing instructions (move, line, curve).
+
+required (on <input>) Browser blocks form submit if empty — no JS needed.
+
+type="email" (on <input>) Browser auto-validates format (needs @, etc.).
+
+Semantic tags — <header> <nav> <main> <section> <footer> Look like <div> but carry meaning for screen readers/SEO. Structure, not styling.
+
+alt="" (empty, not missing) Tells screen readers "decorative image, skip it." Different from no alt at all (which reads the filename).
+
+@media — style only if condition met (e.g. max-width: 720px)
+
+@keyframes — defines animation steps (0%, 50%, 100%), played via animation
+
+@import — pulls in another CSS file, from within CSS
+
+@font-face — loads a custom font file to use as font-family
+
+@supports — style only if browser supports a feature
+
+@page — controls print layout
+
+CSS Concepts
+
+var(--name) — reads a reusable variable defined elsewhere
+
+before / after — invisible extra box CSS can add needs content: ""
+
+hover — style applied only while mouse is over element
+
+clamp(min, preferred, max) — value scales with screen, capped both ends
+
+z-index — stacking order; only works on positioned elements
+
+transition — makes property changes animate smoothly instead of instantly
+
+HTML Tags & Attributes
+
+<meta viewport> — makes page fit mobile screens (no auto zoom-out)
+
+<meta description> — text in Google search results, no visual effect
+
+<script> in <head> — runs before page loads (e.g. defines error-handler early)
+
+onerror="fn(this)" — runs JS the moment that element fails (e.g. broken image)
+
+data-* — custom invisible storage on an element, read later by JS
+
+aria-label — text screen readers announce (for icons w/ no visible text)
+
+aria-hidden="true" — hides from screen readers only, still visible normally
+
+<svg> — vector icon drawn in HTML
+
+viewBox — internal coordinate grid the icon is drawn on
+
+stroke="currentColor" — icon color follows CSS color
+
+<path d="..."> — drawing instructions (move/line/curve)
+
+required (input) — browser blocks submit if empty, no JS needed
+
+type="email" (input) — browser auto-validates format
+
+<header> <nav> <main> <section> <footer> — look like <div> but carry meaning (SEO/screen readers)
+
+
+alt="" — decorative image, screen reader skips it (different from no alt at all)
+
