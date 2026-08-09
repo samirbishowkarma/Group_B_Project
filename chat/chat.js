@@ -148,3 +148,30 @@
         ]
       }
     ];
+        function seedChats() {
+      demoSeeds.forEach(function (seed) {
+        var existing = TG.findChat(myEmail, seed.user.email);
+
+        if (!existing) {
+          TG.saveChat({
+            id: "c" + Date.now() + Math.random().toString(36).slice(2, 6),
+            participants: [myEmail, seed.user.email],
+            messages: seed.messages,
+            lastActivity: seed.messages[seed.messages.length - 1].time
+          });
+        }
+      });
+
+      demoUsers.forEach(function (u) {
+        if (!TG.findUser(u.email)) {
+          TG.registerUser({
+            name: u.name,
+            email: u.email,
+            pass: "demo",
+            persona: u.persona
+          });
+        }
+      });
+    }
+
+    seedChats();
