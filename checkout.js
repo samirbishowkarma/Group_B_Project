@@ -161,6 +161,7 @@ function validateForm() {
 }
 
 function handleCheckoutSubmit(event) {
+  console.log('submit fired')
   event.preventDefault(); // Stop page reload
   clearErrors();
 
