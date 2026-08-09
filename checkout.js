@@ -221,3 +221,15 @@ function completeOrder(cart) {
   $("#checkout-form")[0].reset();
 }
 
+// Cart is now "spent" — clear it so a refresh doesn't let someone
+// accidentally re-submit the same order.
+localStorage.removeItem(CART_STORAGE_KEY);
+
+renderCartSummary();
+
+$("#form-status")
+  .removeClass("error")
+  .addClass("success")
+  .text("Order placed! Confirmation: " + order.id);
+
+$("#checkout-form")[0].reset();
