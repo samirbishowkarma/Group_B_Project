@@ -4,6 +4,85 @@
 
   window.TG = window.TG || {};
 
+  // ---------------------------------------------------------------------
+// Auth (localStorage-backed, demo only)
+// ---------------------------------------------------------------------
+
+var USERS_KEY = 'tg_users';
+var SESSION_KEY = 'tg_session';
+
+// Non-cryptographic hash so passwords aren't stored as plain text.
+// Fine for a local demo — do NOT use this approach in a real product.
+function tgHash(str) {
+  var hash = 0;
+  for (var i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return 'h' + hash;
+}
+
+function getUsers() {
+  try {
+    var raw = localStorage.getItem(USERS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveUsers(users) {
+  localStorage.setItem(USERS_KEY, JSON.stringify(users));
+}
+
+// Returns false if email already registered, true on success.
+TG.registerUser = function (user) {
+  var users = getUsers();
+  var email = user.email.trim().toLowerCase();
+
+  var exists = users.some(function (u) { return u.email === email; });
+  if (exists) return false;
+
+  users.push({
+    name: user.name.trim(),
+    email: email,
+    passHash: tgHash(user.pass)
+  });
+  saveUsers(users);
+  return true;
+};
+
+// Returns true and starts a session on success, false on bad credentials.
+TG.login = function (email, pass) {
+  var users = getUsers();
+  email = email.trim().toLowerCase();
+  var match = users.filter(function (u) {
+    return u.email === email && u.passHash === tgHash(pass);
+  })[0];
+
+  if (!match) return false;
+
+  localStorage.setItem(SESSION_KEY, JSON.stringify({
+    name: match.name,
+    email: match.email
+  }));
+  return true;
+};
+
+TG.logout = function () {
+  localStorage.removeItem(SESSION_KEY);
+};
+
+// Returns { name, email } if someone is logged in, otherwise null.
+TG.currentUser = function () {
+  try {
+    var raw = localStorage.getItem(SESSION_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    return null;
+  }
+};
+
   TG.toast = function (message, status) {
     var host = document.querySelector('.toast-host');
     if (!host) {
