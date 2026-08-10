@@ -464,3 +464,68 @@
       renderMessages(chat);
       renderList($search.val());
     }
+        function startNewChat(name) {
+      name = $.trim(name);
+
+      if (!name) {
+        TG.toast("Please enter a name", "err");
+        return;
+      }
+
+      var allUsers = TG.users();
+      var target = null;
+
+      for (var i = 0; i < allUsers.length; i++) {
+        if (
+          allUsers[i].name.toLowerCase() === name.toLowerCase()
+        ) {
+          target = allUsers[i];
+          break;
+        }
+      }
+
+      if (!target) {
+        for (var j = 0; j < demoUsers.length; j++) {
+          if (
+            demoUsers[j].name
+              .toLowerCase()
+              .indexOf(name.toLowerCase()) > -1
+          ) {
+            target = demoUsers[j];
+            break;
+          }
+        }
+      }
+
+      if (!target) {
+        TG.toast("User not found: " + name, "err");
+        return;
+      }
+
+      if (target.email === myEmail) {
+        TG.toast("You can't chat with yourself", "err");
+        return;
+      }
+
+      var existing = TG.findChat(myEmail, target.email);
+
+      if (existing) {
+        openChat(existing.id);
+      } else {
+        var chat = TG.saveChat({
+          participants: [myEmail, target.email],
+          messages: [],
+          lastActivity: Date.now()
+        });
+
+        openChat(chat.id);
+      }
+
+      $startForm.removeClass("open");
+      $("#newChatName").val("");
+
+      TG.toast(
+        "Chat started with " + target.name,
+        "ok"
+      );
+    }
