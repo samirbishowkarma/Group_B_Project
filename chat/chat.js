@@ -445,3 +445,22 @@
 
       $main.addClass("visible-mobile");
     }
+        function sendMessage() {
+      var text = $.trim($input.val());
+
+      if (!text || !activeChatId) return;
+
+      TG.saveMessage(activeChatId, {
+        from: myEmail,
+        text: text
+      });
+
+      $input.val("");
+
+      var chat = TG.chats().filter(function (c) {
+        return c.id === activeChatId;
+      })[0];
+
+      renderMessages(chat);
+      renderList($search.val());
+    }
