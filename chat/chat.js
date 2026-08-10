@@ -407,3 +407,41 @@
         $messages.scrollTop($messages[0].scrollHeight);
       });
     }
+
+        function openChat(chatId) {
+      activeChatId = chatId;
+
+      var chats = TG.chats();
+      var chat = null;
+
+      for (var i = 0; i < chats.length; i++) {
+        if (chats[i].id === chatId) {
+          chat = chats[i];
+          break;
+        }
+      }
+
+      if (!chat) return;
+
+      var u = getOtherUser(chat);
+
+      $headerInfo.html(
+        '<div class="chat-header-name">' +
+          u.name +
+          ' <span class="online-dot"></span>' +
+        '</div>' +
+        personaBadgeHTML(u.persona)
+      );
+
+      $empty.hide();
+      $main.show();
+
+      renderMessages(chat);
+      renderList($search.val());
+
+      $page
+        .find(".chat-sidebar")
+        .addClass("hidden-mobile");
+
+      $main.addClass("visible-mobile");
+    }
