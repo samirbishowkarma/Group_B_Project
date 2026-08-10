@@ -175,3 +175,110 @@
     }
 
     seedChats();
+
+        function getOtherUser(chat) {
+      var otherEmail = chat.participants.filter(function (e) {
+        return e !== myEmail;
+      })[0];
+
+      var u = TG.findUser(otherEmail) ||
+        demoUsers.filter(function (d) {
+          return d.email === otherEmail;
+        })[0];
+
+      return u || {
+        name: otherEmail,
+        email: otherEmail,
+        persona: "builder"
+      };
+    }
+
+    function personaBadgeHTML(persona) {
+      var p = TG.PERSONAS[persona];
+
+      if (!p) return "";
+
+      return '<span class="persona-badge" style="color:' +
+        p.color +
+        ';border-color:' +
+        p.color +
+        '33;background:' +
+        p.color +
+        '14;">' +
+        p.label +
+        '</span>';
+    }
+
+    function escHtml(s) {
+      return $("<span>").text(s).html();
+    }
+        function renderList(filter) {
+      var chats = TG.chats().filter(function (c) {
+        return c.participants.indexOf(myEmail) > -1;
+      });
+
+      chats.sort(function (a, b) {
+        return b.lastActivity - a.lastActivity;
+      });
+
+      if (filter) {
+        var q = filter.toLowerCase();
+
+        chats = chats.filter(function (c) {
+          var u = getOtherUser(c);
+          return u.name.toLowerCase().indexOf(q) > -1;
+        });
+      }
+
+      $list.empty();
+
+      if (!chats.length) {
+        $list.html(
+          '<div style="padding:32px 16px;text-align:center;color:var(--faint);font-size:.9rem;">' +
+          'No conversations yet</div>'
+        );
+        return;
+      }
+
+      chats.forEach(function (chat) {
+        var u = getOtherUser(chat);
+
+        var last = chat.messages.length
+          ? chat.messages[chat.messages.length - 1]
+          : null;
+
+        var preview = last
+          ? (last.from === myEmail ? "You: " : "") + last.text
+          : "";
+
+        var isActive = chat.id === activeChatId;
+
+        var $item = $(
+          '<div class="chat-item' +
+          (isActive ? " active" : "") +
+          '" data-id="' +
+          chat.id +
+          '">' +
+
+          TG.avatarHTML(u.name, 42, u.persona) +
+
+          '<div class="chat-item-info">' +
+            '<div class="chat-item-name">' +
+              u.name +
+            '</div>' +
+
+            '<div class="chat-item-preview">' +
+              escHtml(preview) +
+            '</div>' +
+          '</div>' +
+
+          '<div class="chat-item-time">' +
+            (last ? TG.timeAgo(last.time) : "") +
+          '</div>' +
+
+          '</div>'
+        );
+
+        $list.append($item);
+      });
+    }
