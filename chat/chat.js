@@ -352,3 +352,58 @@
         $list.append($item);
       });
     }
+        function renderMessages(chat) {
+      $messages.empty();
+
+      if (!chat || !chat.messages.length) {
+        $messages.html(
+          '<div class="chat-date-sep">' +
+          'No messages yet — say hello!' +
+          '</div>'
+        );
+        return;
+      }
+
+      var lastDate = "";
+
+      chat.messages.forEach(function (msg) {
+        var d = new Date(msg.time).toLocaleDateString();
+
+        if (d !== lastDate) {
+          $messages.append(
+            '<div class="chat-date-sep">' +
+            d +
+            '</div>'
+          );
+
+          lastDate = d;
+        }
+
+        var isSent = msg.from === myEmail;
+
+        var h =
+          '<div class="chat-bubble ' +
+          (isSent ? "sent" : "received") +
+          '">' +
+
+            '<div>' +
+              escHtml(msg.text) +
+            '</div>' +
+
+            '<div class="chat-bubble-time">' +
+              TG.timeAgo(msg.time) +
+            '</div>' +
+
+          '</div>';
+
+        $messages.append(h);
+      });
+
+      scrollBottom();
+    }
+
+    function scrollBottom() {
+      requestAnimationFrame(function () {
+        $messages.scrollTop($messages[0].scrollHeight);
+      });
+    }
