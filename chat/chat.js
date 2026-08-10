@@ -529,3 +529,61 @@
         "ok"
       );
     }
+
+        /* ── Event listeners ────────────────────────────────── */
+
+    // Click conversation
+    $list.on("click", ".chat-item", function () {
+      openChat($(this).data("id"));
+    });
+
+    // Send message
+    $input.on("keydown", function (e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    $("#chatSendBtn").on("click", sendMessage);
+
+    // Search
+    $search.on("input", function () {
+      renderList($(this).val());
+    });
+
+    // New conversation toggle
+    $("#chatNewBtn").on("click", function () {
+      $startForm.toggleClass("open");
+
+      if ($startForm.hasClass("open")) {
+        $("#newChatName").focus();
+      }
+    });
+
+    // New conversation submit
+    $("#newChatSubmit").on("click", function () {
+      startNewChat($("#newChatName").val());
+    });
+
+    $("#newChatName").on("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        startNewChat($(this).val());
+      }
+    });
+
+    // Back button
+    $("#chatBackBtn").on("click", function () {
+      $page
+        .find(".chat-sidebar")
+        .removeClass("hidden-mobile");
+
+      $main.removeClass("visible-mobile");
+    });
+
+    // Initial render
+    renderList();
+
+  });
+})(jQuery);
