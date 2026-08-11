@@ -7,6 +7,63 @@
     return $("<div>").text(text).html();
   }
 
+  function allProducts() {
+    var catalog = typeof TG.catalog === "function" ? TG.catalog() : [];
+    var listings = typeof TG.listings === "function" ? TG.listings() : [];
+    return catalog.concat(listings);
+  }
+
+  function findProduct(id) {
+    return allProducts().filter(function (item) {
+      return String(item.id) === String(id);
+    })[0];
+  }
+
+  function money(value) {
+    if (typeof TG.money === "function") return TG.money(value);
+    return "$" + Number(value || 0).toFixed(2);
+  }
+
+  function productImage(product) {
+    if (typeof TG.imgTag === "function") {
+      return TG.imgTag(product, 900, 900, "product-photo");
+    }
+
+    var keywords = product.img || product.cat || "technology";
+    var lock = product.lock || 41;
+    var source = "https://loremflickr.com/900/900/" + encodeURIComponent(keywords) + "?lock=" + lock;
+    return '<img class="product-photo" src="' + source + '" alt="' + clean(product.name, "Product image") + '" loading="lazy">';
+  }
+
+  var WISHLIST_KEY = "tg_wish";
+
+  function wishlist() {
+    try {
+      return JSON.parse(localStorage.getItem(WISHLIST_KEY)) || [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function isSaved(id) {
+    return wishlist().indexOf(String(id)) > -1;
+  }
+
+  function toggleSaved(id) {
+    var productId = String(id);
+    var items = wishlist();
+    var index = items.indexOf(productId);
+
+    if (index > -1) {
+      items.splice(index, 1);
+    } else {
+      items.push(productId);
+    }
+
+    localStorage.setItem(WISHLIST_KEY, JSON.stringify(items));
+    return index === -1;
+  }
+
   function starLine(rating) {
     var rounded = Math.max(0, Math.min(5, Math.round(rating)));
     return new Array(rounded + 1).join("★") + new Array(6 - rounded).join("☆");
@@ -31,7 +88,7 @@
   function renderProduct($pdp, product) {
     var rating = Number(product.rating) || 0;
     var discount = product.old ? Math.round((1 - product.price / product.old) * 100) : 0;
-    var image = TG.imgTag(product, 900, 900, "product-photo");
+    var image = productImage(product);
     var brand = clean(product.brand, "Independent seller");
     var description = clean(product.desc, "A quality item listed on the Technologia marketplace.");
     var sku = clean(product.id || "item").toUpperCase();
@@ -53,7 +110,7 @@
           '<span>' + rating.toFixed(1) + ' out of 5</span>' +
         '</div>' +
         '<div class="price-row">' +
-          '<div class="price grad-text">' + TG.money(product.price) + (product.old ? '<span class="old">' + TG.money(product.old) + '</span>' : '') + '</div>' +
+          '<div class="price grad-text">' + money(product.price) + (product.old ? '<span class="old">' + money(product.old) + '</span>' : '') + '</div>' +
           (discount > 0 ? '<span class="saving-pill">Save ' + discount + '%</span>' : '') +
         '</div>' +
         '<p class="price-note">This is the seller\'s current asking price.</p>' +
@@ -97,17 +154,17 @@
       $save.find("span").text(saved ? "Saved" : "Save");
     }
 
-    updateSaveButton(TG.inWish(product.id));
+    updateSaveButton(isSaved(product.id));
 
     $save.on("click", function () {
-      var saved = TG.toggleWish(product.id);
+      var saved = toggleSaved(product.id);
       updateSaveButton(saved);
       TG.toast(saved ? "Saved to your wishlist" : "Removed from your wishlist");
     });
   }
 
   function showRelatedProducts(product) {
-    var related = TG.all().filter(function (item) {
+    var related = allProducts().filter(function (item) {
       return item.cat === product.cat && item.id !== product.id;
     }).slice(0, 4);
 
@@ -115,16 +172,13 @@
 
     var $related = $("#related").empty();
     related.forEach(function (item) {
-      $related.append(TG.cardHTML(item));
-    });
-
-    $related.find(".js-add").each(function () {
-      var id = $(this).data("id");
+      var $card = $(TG.cardHTML(item));
       var $chatLink = $('<a class="add-btn contact-card" aria-label="Chat about this product">' +
         '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>' +
       '</a>');
-      $chatLink.attr("href", "chat.html?product=" + encodeURIComponent(id));
-      $(this).replaceWith($chatLink);
+      $chatLink.attr("href", "chat.html?product=" + encodeURIComponent(item.id));
+      $card.find(".add-btn").replaceWith($chatLink);
+      $related.append($card);
     });
 
     $("#relatedWrap").removeAttr("hidden");
@@ -136,7 +190,7 @@
     if (!$pdp.length || !window.TG) return;
 
     var requestedId = new URLSearchParams(window.location.search).get("id");
-    var product = TG.find(requestedId || "s1");
+    var product = findProduct(requestedId || "s1");
 
     if (!product) {
       renderMissing($pdp);
