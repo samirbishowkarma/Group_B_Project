@@ -10,4 +10,3 @@
 .auth-shell { min-height: calc(100vh - 72px); display: grid; place-items: center; padding: 46px 0; position: relative; overflow: hidden; }
 .auth-shell::before { content: ""; position: absolute; inset: 0; background: radial-gradient(560px 340px at 22% 20%, rgba(45,212,255,.16), transparent 60%), radial-gradient(560px 340px at 78% 82%, rgba(139,92,255,.18), transparent 60%); z-index: -1; }
 .auth-card { width: min(100% - 40px, 448px); background: rgba(16,19,28,.82); backdrop-filter: blur(16px); border: 1px solid var(--line-2); border-radius: 22px; box-shadow: var(--shadow-lg); padding: 36px; }
-
