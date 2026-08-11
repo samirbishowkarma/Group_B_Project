@@ -24,6 +24,15 @@
 .skill-chip.active { background: var(--brand-2); border-color: var(--brand-2); color: #07080c; font-weight: 600; }
 
 /* ── Responsive ───────────────────────────── */
-@media (max-width: 520px) {
+.auth-card.reg-card { width: min(100% - 40px, 520px); }
+.auth-shell { min-height: calc(100vh - 72px); display: grid; place-items: center; padding: 46px 0; }
+
+.persona-select { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.skills-select { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+
+@media (max-width: 720px) {
+  .auth-card.reg-card { width: min(100% - 32px, 100%); padding: 28px; }
   .persona-select { grid-template-columns: 1fr; }
+  .skills-select { justify-content: stretch; }
+  .field-group { width: 100%; }
 }

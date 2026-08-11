@@ -18,7 +18,7 @@
         ok &= setErr("li-email", emailRe.test(email) ? "" : "Enter a valid email.");
         ok &= setErr("li-pass", pass.length ? "" : "Enter your password.");
         if (!ok) return;
-        if (TG.login(email, pass)) { TG.toast("Signed in! Redirecting\u2026", "ok"); setTimeout(function () { location.href = "index.html"; }, 900); }
+        if (TG.login(email, pass)) { TG.toast("Signed in! Redirecting\u2026", "ok"); setTimeout(function () { location.href = "Home.html"; }, 900); }
         else { setErr("li-pass", "Email or password is incorrect."); TG.toast("Login failed", "err"); }
       });
       $("#registerForm").on("submit", function (e) {

@@ -59,7 +59,7 @@
 
       TG.login(email, pass);
       TG.toast("Account created! Redirecting\u2026", "ok");
-      setTimeout(function () { location.href = "index.html"; }, 900);
+      setTimeout(function () { location.href = "Home.html"; }, 900);
     });
   });
 })(jQuery);
