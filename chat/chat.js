@@ -25,8 +25,7 @@
     }
 
     var myEmail = sess.email;
-  });
-})(jQuery);
+  
 
     /* ── Demo users ─────────────────────────────────────── */
     var demoUsers = [
@@ -584,6 +583,5 @@
 
     // Initial render
     renderList();
-
   });
 })(jQuery);
