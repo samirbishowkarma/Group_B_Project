@@ -1,280 +1,144 @@
 # Technologia
+Technologia is our project under Group B. The purpose of our project is to establish a one-stop online store for makers, students and hobbyists who are looking for electronic components like sensors, robotics components, IoT boards, etc. Members can also add parts that they no longer use and can contact other members via the chat page.
 
-A dark-themed, multi-page web marketplace for buying and selling sensors, robotics parts, gadgets, and IoT devices.
-
-> This README documents the files currently on hand. Some pages referenced in navigation (`shop.html`, `sell.html`, `chat.html`, `discussions.html`, `cart.html`, `login.html`, `exchange.html`, `register.html`, `product.html`, ) and `js/base.js` itself are linked
----
-
-## 📁 Project Structure
-
-```
-technologia/
-├── Home.html            # Homepage
-├── marketplace.html       # Community marketplace / listings page
-├── profile.html            # User profile page
-├── register.html           # Registration page
-
-├── base.css            # (referenced, not included) global styles/variables
-│home.css             # (referenced, not included) homepage-specific styles
-│marketplace.css      # Persona cards, marketplace CTA banner
-└── profile.css          # Profile header, tabs, listings, projects, edit form
-
-├── base.js              # (referenced, not included) shared TG namespace: auth, storage, cards
-├── home.js               # Homepage logic (index_js.js in this file set)
-├── marketplace.js        # Marketplace filtering/search/sort logic
-└── profile.js             # Profile page logic (tabs, editing, projects, listings)
-```
-
----
-
-## 📄 Pages
-
-### `Home.html` — Homepage
-- Hero section with animated stat counters (products listed, happy makers, categories)
-- Scrolling marquee of tech keywords (Arduino, ESP32, Robotics, etc.)
-- Dynamic category grid (`#catGrid`) — populated by `home.js`
-- Featured products grid (`#featured`) — pulled from `TG.catalog()`
-- Promo banner encouraging users to sell items
-- "Recently listed" section (`#recent`) — pulled from `TG.listings()`, with demo fallback data
-- Newsletter signup form with basic email validation
-
-### `marketplace.html` — Marketplace
-- Persona cards (Seller / Builder / Idea person / Student) — rendered from `TG.PERSONAS`
-- "Got parts to sell?" CTA banner
-- Category filter chips (All / Sensors / Mechanical / Gadgets / IoT)
-- Search, sort (newest / price low–high / high–low), and condition (new/used) filters
-- Product grid (`#mpGrid`) with an empty state when no listings match filters
-
-### `profile.html` — User Profile
-- Profile header container (`#profileHeader`) — avatar, name, persona badge, bio, stats
-- Tabbed content: **Overview**, **Listings**, **Projects**
-- Sign-in gate: shows a "Sign in to view your profile" prompt if no active session
-
-### `register.html` — Registration
-- Present in the upload set but not included in this document review; assumed to handle new user sign-up (feeds into `TG.registerUser`).
-
----
-
-## ⚙️ JavaScript Modules
-
-### `home.js` *(uploaded as `home.js`)*
-Runs only on the homepage (`#catGrid` present). Responsibilities:
-- Builds the 4 category cards (Sensors, Mechanical, Gadgets, IoT) with icons and images
-- Renders 8 featured products by filtering `TG.catalog()` for a fixed set of IDs
-- Renders the 4 most recent listings via `TG.listings()`, falling back to 4 demo used-item entries
-- Animates the hero stat counters using `requestAnimationFrame`
-- Handles newsletter form submission with regex email validation
-
-### `marketplace.js`
-Runs only on the marketplace page (`#mpGrid` present). Responsibilities:
-- Renders persona cards from `TG.PERSONAS` with per-persona icon/color
-- Renders category filter chips
-- Maintains a `state` object (`cat`, `q`, `cond`, `sort`) and a single `render()` function that:
-  - Filters `TG.all()` by category, condition, and search query
-  - Sorts by price (low/high) or leaves default "newest" order
-  - Renders product cards or an empty state
-- Debounces the search input (200ms) for performance
-
-### `profile.js`
-Runs only on the profile page (`#profileHeader` present). Responsibilities:
-- Checks `TG.session()`; shows a sign-in prompt and hides tabs if not logged in
-- Auto-registers a minimal user record if a session exists but no matching user is found
-- **Header**: avatar (image or initial letter), name, persona badge, bio, join date, stats (listings/projects/reputation)
-- **Overview tab**: bio, skill tags, and a merged/sorted activity feed of recent listings + projects
-- **Listings tab**: grid of the user's own listings (via `TG.cardHTML`), with an empty state
-- **Projects tab**: grid of the user's own projects + a "New Project" form (title, description, tags, image URL)
-- **Edit Profile**: inline form to update name, bio, and skills (`TG.updateProfile`)
-- **Avatar upload**: reads a local image file as a data URL and saves it (`TG.updateUserAvatar`)
-- **Logout**: clears session (`TG.logout`) and redirects home
-- Project create/delete wired to `TG.saveProject` / `TG.deleteProject`
-
----
-
-## 🎨 Stylesheets
-
-### `marketplace.css`
-- `.persona-row` / `.persona-card` — flex row of persona cards with a colored top border and icon badge driven by a `--persona-color` CSS variable
-- `.mp-cta` — gradient CTA banner with soft radial-gradient glow effects
-- Responsive breakpoints: 2-per-row personas at ≤720px, full-width at ≤520px
-
-### `profile.css`
-- `.profile-header` — gradient card with avatar, name, persona badge, bio, stats
-- `.profile-avatar` — circular avatar with hover scale + glow, includes a hidden file input for uploads
-- `.profile-tabs` — underline-style tab navigation
-- `.skill-tag`, `.activity-item`, `.project-card`, `.project-form` — supporting components for the Overview/Listings/Projects tabs
-- `.edit-form` — inline profile editing form styles
-- `.signin-prompt` — centered empty state for logged-out users
-- Responsive adjustments for avatar size, stacked stats, and single-column project grid at ≤720px
+Our project is currently a prototype of front-end project developed using HTML, CSS, JavaScript and jQuery. Our project runs on the browser and no npm or other build system tools are required.
 
 
----
 
-## 🚩 Missing / Referenced Files
 
-These files are linked from the HTML or called by the JS but were not part of this upload — needed for the site to run correctly:
 
-- `base.css` — global design tokens, layout, buttons, product-grid/card styles
-- `home.css` — homepage-specific styles (hero, marquee, promo banner)
-- `base.js` — the `TG` shared module (session/auth, catalog, storage helpers)
-- `jquery.min.js` — jQuery library (all JS files use the `$` jQuery wrapper)
-- `shop.html`, `sell.html`, `chat.html`, `discussions.html`, `cart.html`, `login.html`
-## 🛠️ Tech Stack
 
-- **HTML5** — semantic, multi-page structure
-- **CSS3** — custom properties/theming, gradients, responsive breakpoints
-- **jQuery** — DOM manipulation and event handling
-- **localStorage** (via `TG`) — client-side persistence for auth, listings, and projects (no backend)
 
+
+
+
+
+
+## Architecture Diagram
+
+
+![alt text](<Screenshot 2026-08-04 122048.png>)
+
+## What we have added
+
+- Home page that has the categories of products and their features along with listings
+- Marketplace page having the controls for searching, sorting and filtering
+- Product pages having the details about the products along with similar items
+- Sell page where users can create their listings
+- Forms for login and registration of demo accounts
+- Profile page having user details and their listings and projects
+- Pages for chat and discussion with other members
+- Wishlist stored in browser
+
+## Product page
+
+Product page has the ID of the product that has been extracted from the URL. For example:
+
+```text
+product.html?id=s1
 ```
 
-Then open `index.html` in your browser.
+It finds the product in the common catalog or in the list of sellers and provides its picture, price, condition, rating, seller, and other information. Besides, it shows several similar items from the same category.
 
----
+We decided not to include a cart in this version of the page. If a user likes something, he or she can use the **Chat with seller** button and organize all the details directly with the seller. The link contains the ID of the selected product:
 
-# Group_B_Project
-
-## Architectural Design
-
-**1. Frontend**
-- HTML
-- CSS
-- JavaScript
-
-**2. Database**
-- Users
-- Products
-- Projects
-- Messages
-- Comments
-
-**3. Main Features**
-- User Login
-- User Profiles
-- Marketplace
-- Product Listings
-- Search Products
-- Buy/Sell IoT Devices
-- Project Showcase
-- Chat System
-- Discussion Threads
-- Notifications
-
-**4. User Flow**
-
-Users can:
-- Sign up or log in
-- Browse IoT devices and sensors
-- Create product listings
-- Search for components
-- Chat with sellers
-- Comment on products and projects
-- Share project ideas
-- Collaborate with other users
-
-**Flow:**
-
-```
-Users
-  ↓
-Frontend (HTML/CSS/JS)
-  ↓
-Database
+```text
+chat.html?product=s1
 ```
 
-<img width="461" height="331" alt="Architectural Design diagram" src="https://github.com/user-attachments/assets/b37e6799-6358-4e12-97e7-8df0c150ea90" />
+The save button keeps the product in a local wishlist, so it will still be there when the page is opened again in the same browser.
 
----
+## Pages in the project
 
-## Home Page
+| File | What it is used for |
+| --- | --- |
+| `Home.html` | Main landing page |
+| `marketplace.html` | Browsing and filtering marketplace listings |
+| `product.html` | Viewing one product and contacting its seller |
+| `sell.html` | Creating a product listing |
+| `chat.html` | User conversations |
+| `discussion.html` | Community questions, threads and replies |
+| `profile.html` | User details, listings and projects |
+| `login.html` | Signing in |
+| `register.html` | Creating a demo account |
 
-The Home Page is the landing page of Technologia, an online marketplace designed for makers, hobbyists, students, and engineers to buy, sell, and discover IoT devices, sensors, robotics components, and electronic gadgets.
+## File structure
 
-The page introduces users to the platform through an engaging hero section, featured products, category browsing, and recently listed items while encouraging both buyers and sellers to interact with the marketplace.
+The files are kept in the root of the project rather than separate `css` and `js` folders.
 
-### Features
+```text
+Group_B_Project/
+|-- Home.html
+|-- home.css
+|-- home.js
+|-- marketplace.html
+|-- marketplace.css
+|-- product.html
+|-- product.css
+|-- product.js
+|-- sell.html
+|-- sell.css
+|-- sell.js
+|-- chat.html
+|-- chat.css
+|-- discussion.html
+|-- discussion.css
+|-- discussion.js
+|-- profile.html
+|-- profile.css
+|-- profile.js
+|-- login.html
+|-- login.css
+|-- login.js
+|-- register.html
+|-- register.css
+|-- register.js
+|-- base.css
+|-- base.js
+|-- checkout.js
+|-- jquery.min.js
+`-- README.md
+```
 
-**Hero Section**
-- Large welcoming banner introducing the marketplace.
-- Call-to-action buttons.
-- Animated statistics displaying:
-  - Products listed
-  - Product categories
-- Interactive floating information cards.
+`base.css` contains styles that are shared by the pages, including navigation, buttons, cards and responsive layouts. `base.js` contains shared product data and helper functions used across the site. The other CSS and JavaScript files are for their matching pages.
 
-**Category Section**
+`checkout.js` is still in the repository from an earlier version, but the latest product page now directs users to chat instead of checkout.
 
-Users can browse products by category, including:
-- Sensors
-- Robotics
-- Mechanical Parts
-- Gadgets
-- IoT Devices
+## How to run it
 
-Each category card includes:
-- Background image
-- Icon
-- Category name
-- Short description
-- Hover animation
+Clone the repository:
 
-**Featured Products**
+```bash
+git clone https://github.com/samirbishowkarma/Group_B_Project.git
+cd Group_B_Project
+```
 
-Displays selected products that are popular within the marketplace. This section highlights:
-- Product cards
-- Images
-- Prices
-- Product information
+Open the folder in VS Code and open `Home.html`. We usually use the **Live Server** extension since it helps with testing links between different pages. There are no packages to install.
 
-**Promotional Banner**
+The internet connection is required for the image placeholders of the products. Everything else works locally in the browser.
+## Source of images
 
-Encourages users to sell unused components by providing a quick link to create a new listing.
+Product images are not stored in this repository. The JavaScript fetches them from the [LoremFlickr](https://loremflickr.com/) site at the time of page loading. URLs for the images are constructed by JavaScript based on product keywords like `temperature,sensor` or `arduino,board`.
 
-**Recently Listed Products**
+For instance:
 
-Displays the latest items uploaded by sellers, allowing users to discover newly available components and devices.
+```text
+https://loremflickr.com/500/400/temperature,sensor?lock=72
+```
 
-**Navigation**
+Parameters `500` and `400` specify the image dimensions. Product card requests the `500 x 400` image, while product details page requests the bigger `900 x 900` image. `Lock` parameter makes sure that the same product will have the same placeholder image after refreshing the page.
 
-The homepage navigation provides quick access to:
-- Home
-- Shop
-- IoT
-- Sell
-- Exchange
-- User Account
+## The storage of the data
 
-**Footer**
+There is no back-end database in this version. Demo accounts, the sessions of the logins and saved products all use browser `localStorage`. It means that the data is local and can be cleared when you clear the browser data.
 
-The footer contains:
-- Marketplace information
-- Newsletter subscription
-- Shop links
-- Seller links
-- Company information
-- Copyright notice
+The login function was used only for demonstration of the website interface. Do not put any real passwords or personal data in there.
 
-### Technologies Used
-- HTML
-- CSS
-- JavaScript
-- jQuery
+## Possible improvements
 
-### UI Features
-- Responsive design
-- CSS Grid layouts
-- Glassmorphism effects
-- Hover animations
-- Floating animations
-- Gradient overlays
-- Animated marquee
-- Mobile-friendly layout
-
-### Responsive Design
-
-The homepage adapts to different screen sizes by:
-- Stacking the hero section on tablets and mobile devices.
-- Hiding decorative floating cards on smaller screens.
-- Adjusting promotional banners for mobile viewing.
-- Maintaining responsive spacing and typography.
-
-### Project Structure
+- Back-end and database
+- User authentication
+- Chat and notifications
+- Upload of images on the server
+- Any agreed upon payment system
+- Mobile testing
