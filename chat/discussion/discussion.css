@@ -14,7 +14,7 @@
 /* ── Thread Card ────────────────────────────────────────── */
 .disc-thread { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: var(--radius-sm); border: 1px solid transparent; background: rgba(255,255,255,.02); cursor: pointer; transition: background .2s, border-color .2s; }
 .disc-thread:hover { background: rgba(255,255,255,.05); border-color: var(--line-2); }
-.disc-thread.active { background: rgba(45,212,255,.06); border-color: rgba(45,212,255,.25); }
+.disc-thread.active { background: rgba(48, 45, 255, 0.06); border-color: rgba(45,212,255,.25); }
 .disc-thread .disc-thread-body { flex: 1; min-width: 0; }
 .disc-thread .disc-thread-title { font-weight: 700; font-size: .92rem; line-height: 1.35; margin: 0 0 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .disc-thread .disc-thread-meta { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: var(--faint); }
