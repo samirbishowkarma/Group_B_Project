@@ -7,8 +7,14 @@
 
 
 
+<link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/login.css">
+  <script>window.tgImgErr=function(el){el.onerror=null;el.style.background='linear-gradient(150deg,#182238,#0b0e17)';el.removeAttribute('src');};</script>
 
 
+<script src="jquery.min.js"></script>
+<script src="js/base.js"></script>
+<script src="js/login.js"></script>
 
                                              Architectural Desgin
 
