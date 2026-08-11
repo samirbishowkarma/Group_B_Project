@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — Technologia</title>
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="register.css">
+  <script>window.tgImgErr=function(el){el.onerror=null;el.style.background='linear-gradient(150deg,#182238,#0b0e17)';el.removeAttribute('src');};</script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="Home.html"><span class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.6v2"/><circle cx="12" cy="2" r="1" fill="currentColor" stroke="none"/><rect x="4.5" y="6.6" width="15" height="11.2" rx="4"/><rect x="7.4" y="10.2" width="9.2" height="3.3" rx="1.65" fill="currentColor" stroke="none"/><path d="M2.6 10.9v3"/><path d="M21.4 10.9v3"/><path d="M10 17.8v3"/><path d="M14 17.8v3"/></svg></span>Techno<b>logia</b></a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="Home.html">Home</a>
+        <a href="marketplace.html">Marketplace</a>
+        <a href="chat.html">Chat</a>
+        <a href="discussions.html">Discuss</a>
+        <a href="sell.html">Sell</a>
+        <a href="profile.html" class="active">Profile</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="icon-btn js-auth-link" href="login.html" aria-label="Account" title="Account"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+        <button class="icon-btn nav-toggle" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="auth-shell">
+    <div class="auth-card reg-card">
+
+      <div class="brand brand--center"><span class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.6v2"/><circle cx="12" cy="2" r="1" fill="currentColor" stroke="none"/><rect x="4.5" y="6.6" width="15" height="11.2" rx="4"/><rect x="7.4" y="10.2" width="9.2" height="3.3" rx="1.65" fill="currentColor" stroke="none"/><path d="M2.6 10.9v3"/><path d="M21.4 10.9v3"/><path d="M10 17.8v3"/><path d="M14 17.8v3"/></svg></span>Techno<b>logia</b></div>
+      <p class="auth-intro">Join Technologia — choose your persona and start building.</p>
+
+      <form id="regForm" novalidate>
+
+        <div class="field-group field-group--tight"><label for="reg-name">Full name *</label><input class="field" type="text" id="reg-name" placeholder="Jane Maker"><span class="err" data-for="reg-name"></span></div>
+
+
+        <div class="field-group field-group--tight"><label for="reg-email">Email *</label><input class="field" type="email" id="reg-email" placeholder="you@example.com"><span class="err" data-for="reg-email"></span></div>
+
+        <div class="field-group field-group--tight"><label for="reg-pass">Password *</label><input class="field" type="password" id="reg-pass" placeholder="At least 6 characters"><span class="err" data-for="reg-pass"></span></div>
+
+
+        <div class="field-group field-group--tight"><label for="reg-confirm">Confirm password *</label><input class="field" type="password" id="reg-confirm" placeholder="Re-enter password"><span class="err" data-for="reg-confirm"></span></div>
+
+
+        <div class="field-group field-group--tight">
+          <label>I am a… *</label>
+          <div class="persona-select" id="personaSelect">
+            <button type="button" data-persona="seller" class="persona-opt"><div class="po-icon" style="background:#2dd4ff;">S</div><div class="po-info"><strong>The Seller</strong><span>Has parts to sell</span></div></button>
+            <button type="button" data-persona="builder" class="persona-opt"><div class="po-icon" style="background:#8b5cff;">B</div><div class="po-info"><strong>The Builder</strong><span>Wants to build projects</span></div></button>
+            <button type="button" data-persona="idea" class="persona-opt"><div class="po-icon" style="background:#22f5c8;">I</div><div class="po-info"><strong>The Idea Person</strong><span>Has concepts to share</span></div></button>
+            <button type="button" data-persona="student" class="persona-opt"><div class="po-icon" style="background:#ff9d5c;">E</div><div class="po-info"><strong>Student / Educator</strong><span>Learning & teaching</span></div></button>
+          </div>
+          <span class="err" data-for="persona"></span>
+        </div>
+
+
+        <div class="field-group field-group--tight">
+          <label>Skills (select any that apply)</label>
+          <div class="skills-select" id="skillsSelect">
+            <button type="button" class="skill-chip" data-skill="Arduino">Arduino</button>
+            <button type="button" class="skill-chip" data-skill="Raspberry Pi">Raspberry Pi</button>
+            <button type="button" class="skill-chip" data-skill="3D Printing">3D Printing</button>
+            <button type="button" class="skill-chip" data-skill="Sensors">Sensors</button>
+            <button type="button" class="skill-chip" data-skill="Robotics">Robotics</button>
+            <button type="button" class="skill-chip" data-skill="IoT">IoT</button>
+            <button type="button" class="skill-chip" data-skill="CNC">CNC</button>
+            <button type="button" class="skill-chip" data-skill="Welding">Welding</button>
+            <button type="button" class="skill-chip" data-skill="Programming">Programming</button>
+            <button type="button" class="skill-chip" data-skill="PCB Design">PCB Design</button>
+          </div>
+        </div>
+
+        <div class="field-group field-group--tight"><label for="reg-bio">Short bio</label><textarea class="field" id="reg-bio" rows="2" placeholder="Tell us about yourself..."></textarea></div>
+
+
+        <div class="field-group field-group--tight"><label class="label-check"><input type="checkbox" class="label-check-input" id="reg-terms"> I agree to the terms and conditions.</label><span class="err" data-for="reg-terms"></span></div>
+
+        <button class="btn btn-primary btn-block" type="submit">Create account</button>
+      </form>
+
+      <p class="auth-note">Already have an account? <a href="login.html" style="color:var(--brand);">Sign in</a></p>
+    </div>
+  </main>
+
+  <div class="toast-host"></div>
+<script src="jquery.min.js"></script>
+<script src="base.js"></script>
+<script src="register.js"></script>
+</body>
+</html>

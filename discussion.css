@@ -1,0 +1,93 @@
+/* discussions.css — Technologia Discussions Page */
+
+.disc-layout { display: grid; grid-template-columns: 380px 1fr; gap: 28px; align-items: start; padding-bottom: 60px; }
+
+/* ── Sidebar ───────────────────────────────────────────── */
+.disc-sidebar { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 14px; max-height: calc(100vh - 110px); }
+.disc-search { margin-bottom: 2px; }
+.disc-chips { margin-bottom: 4px; }
+.disc-chips .chip { font-size: .82rem; padding: 7px 13px; }
+.disc-threads { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding-right: 4px; }
+.disc-threads::-webkit-scrollbar { width: 5px; }
+.disc-threads::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 9px; }
+
+/* ── Thread Card ────────────────────────────────────────── */
+.disc-thread { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: var(--radius-sm); border: 1px solid transparent; background: rgba(255,255,255,.02); cursor: pointer; transition: background .2s, border-color .2s; }
+.disc-thread:hover { background: rgba(255,255,255,.05); border-color: var(--line-2); }
+.disc-thread.active { background: rgba(45,212,255,.06); border-color: rgba(45,212,255,.25); }
+.disc-thread .disc-thread-body { flex: 1; min-width: 0; }
+.disc-thread .disc-thread-title { font-weight: 700; font-size: .92rem; line-height: 1.35; margin: 0 0 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.disc-thread .disc-thread-meta { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: var(--faint); }
+.disc-thread .disc-thread-meta .author-name { color: var(--muted); font-weight: 600; }
+.disc-thread .disc-thread-stats { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 10px; border-radius: 10px; background: rgba(255,255,255,.03); flex-shrink: 0; }
+.disc-thread .disc-thread-stats span { font-size: .78rem; color: var(--faint); line-height: 1; }
+.disc-thread .disc-thread-stats .stat-num { font-weight: 700; color: var(--muted); font-size: .88rem; }
+
+/* ── Category Tag ───────────────────────────────────────── */
+.disc-cat-tag { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; flex-shrink: 0; }
+.disc-cat-tag.Help { background: rgba(45,212,255,.12); color: var(--brand); }
+.disc-cat-tag.Projects { background: rgba(139,92,255,.12); color: var(--brand-2); }
+.disc-cat-tag[data-cat="Show & Tell"], .disc-cat-tag.Show-Tell { background: rgba(34,245,200,.12); color: var(--brand-3); }
+.disc-cat-tag.Parts { background: rgba(255,122,69,.12); color: var(--accent); }
+.disc-cat-tag.Collaboration { background: rgba(52,211,153,.12); color: var(--ok); }
+.disc-cat-tag.Education { background: rgba(107,115,134,.14); color: var(--faint); }
+
+/* ── Avatar ─────────────────────────────────────────────── */
+.tg-avatar { border-radius: 50%; display: grid; place-items: center; color: #05070d; font-weight: 800; flex-shrink: 0; line-height: 1; }
+
+/* ── Persona Badge ──────────────────────────────────────── */
+.persona-badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: .66rem; font-weight: 700; letter-spacing: .03em; }
+
+/* ── Main Area ──────────────────────────────────────────── */
+.disc-main { min-height: 400px; }
+.disc-empty { text-align: center; padding: 80px 30px; color: var(--muted); }
+.disc-empty svg { color: var(--line-2); margin-bottom: 16px; }
+.disc-empty h3 { color: var(--ink); margin: 0 0 8px; font-size: 1.2rem; }
+.disc-empty p { margin: 0; }
+
+/* ── Thread Detail ──────────────────────────────────────── */
+.disc-detail .author { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.disc-detail .author .author-name { font-weight: 700; font-size: 1.05rem; }
+.disc-detail .author .author-time { color: var(--faint); font-size: .82rem; }
+.disc-detail .body { color: var(--muted); line-height: 1.75; margin-bottom: 16px; font-size: .95rem; white-space: pre-wrap; }
+.disc-detail .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.disc-detail .tags .disc-cat-tag { font-size: .72rem; padding: 4px 10px; }
+.disc-detail .actions { display: flex; align-items: center; gap: 10px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 24px; }
+.disc-detail h2 { margin: 0 0 6px; font-size: 1.5rem; letter-spacing: -0.02em; }
+.disc-detail .cat-row { margin-bottom: 18px; }
+
+/* ── Upvote Button ──────────────────────────────────────── */
+.upvote-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 10px; border: 1px solid var(--line-2); background: rgba(255,255,255,.03); color: var(--faint); font-weight: 700; font-size: .85rem; cursor: pointer; transition: .2s; }
+.upvote-btn:hover { border-color: var(--brand); color: var(--brand); }
+.upvote-btn.voted { background: rgba(45,212,255,.1); border-color: rgba(45,212,255,.35); color: var(--brand); }
+.upvote-btn svg { transition: transform .2s; }
+.upvote-btn:hover svg { transform: translateY(-2px); }
+
+/* ── Replies ────────────────────────────────────────────── */
+.disc-replies { margin-top: 8px; }
+.disc-replies h3 { font-size: 1rem; margin: 0 0 16px; color: var(--muted); }
+.disc-reply { display: flex; gap: 12px; padding: 16px 0; border-top: 1px solid var(--line); }
+.disc-reply .reply-body { flex: 1; min-width: 0; }
+.disc-reply .reply-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.disc-reply .reply-text { color: var(--muted); font-size: .92rem; line-height: 1.65; white-space: pre-wrap; }
+.disc-reply .reply-actions { margin-top: 8px; }
+
+/* ── Reply Form ─────────────────────────────────────────── */
+.disc-reply-form { display: flex; gap: 12px; padding: 18px 0; border-top: 1px solid var(--line-2); margin-top: 12px; align-items: flex-start; }
+.disc-reply-form textarea { flex: 1; }
+
+/* ── New Thread Form ────────────────────────────────────── */
+.disc-new-form { padding: 28px; }
+.disc-new-form h2 { margin: 0 0 4px; font-size: 1.4rem; }
+.disc-new-form .sub { color: var(--muted); margin: 0 0 20px; }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .disc-layout { grid-template-columns: 1fr; }
+  .disc-sidebar { position: static; max-height: none; }
+  .disc-threads { max-height: 420px; }
+}
+@media (max-width: 720px) {
+  .disc-thread { padding: 12px; gap: 10px; }
+  .disc-reply-form { flex-direction: column; }
+}
