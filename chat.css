@@ -9,6 +9,7 @@
   border-top: 1px solid var(--line);
 }
 
+/* ── Sidebar ─────────────────────────────────────────── */
 .chat-sidebar {
   background: var(--surface);
   border-right: 1px solid var(--line);
@@ -75,6 +76,7 @@
   pointer-events: none;
 }
 
+/* ── Conversation List ────────────────────────────────── */
 .chat-list {
   flex: 1;
   overflow-y: auto;
@@ -118,6 +120,7 @@
   margin-top: 2px;
 }
 
+/* ── Main Chat Area ───────────────────────────────────── */
 .chat-main {
   display: flex;
   flex-direction: column;
@@ -151,6 +154,7 @@
 }
 .chat-back-btn:hover { background: rgba(45,212,255,.1); }
 
+/* ── Online indicator ─────────────────────────────────── */
 .online-dot {
   width: 8px;
   height: 8px;
@@ -160,6 +164,7 @@
   display: inline-block;
 }
 
+/* ── Messages Area ────────────────────────────────────── */
 .chat-messages {
   flex: 1;
   overflow-y: auto;
@@ -171,6 +176,7 @@
 .chat-messages::-webkit-scrollbar { width: 5px; }
 .chat-messages::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 9px; }
 
+/* ── Bubbles ──────────────────────────────────────────── */
 .chat-bubble {
   max-width: 65%;
   padding: 12px 16px;
@@ -200,6 +206,7 @@
   text-align: right;
 }
 
+/* ── Input Area ────────────────────────────────────────── */
 .chat-input {
   display: flex;
   gap: 10px;
@@ -242,6 +249,7 @@
 }
 .chat-send-btn:active { transform: scale(.96); }
 
+/* ── Empty State ──────────────────────────────────────── */
 .chat-empty {
   flex: 1;
   display: flex;
@@ -257,6 +265,7 @@
 .chat-empty h3 { color: var(--muted); font-weight: 700; margin: 0; font-size: 1.1rem; }
 .chat-empty p { margin: 0; font-size: .9rem; }
 
+/* ── Auth Gate ────────────────────────────────────────── */
 .chat-auth {
   flex: 1;
   display: flex;
@@ -270,6 +279,7 @@
 .chat-auth svg { color: var(--line-2); }
 .chat-auth h3 { color: var(--ink); font-weight: 700; margin: 0; }
 
+/* ── New Chat Form ────────────────────────────────────── */
 .chat-start-form {
   padding: 16px 18px;
   border-top: 1px solid var(--line);
@@ -287,6 +297,7 @@
   font-size: .88rem;
 }
 
+/* ── Shared: tg-avatar ────────────────────────────────── */
 .tg-avatar {
   border-radius: 50%;
   display: inline-grid;
@@ -298,6 +309,7 @@
   user-select: none;
 }
 
+/* ── Shared: persona-badge ────────────────────────────── */
 .persona-badge {
   display: inline-flex;
   align-items: center;
@@ -309,6 +321,7 @@
   border: 1px solid;
 }
 
+/* ── Date separator ───────────────────────────────────── */
 .chat-date-sep {
   text-align: center;
   color: var(--faint);
@@ -318,6 +331,7 @@
   user-select: none;
 }
 
+/* ── Responsive: Mobile ───────────────────────────────── */
 @media (max-width: 720px) {
   .chat-layout {
     grid-template-columns: 1fr;
