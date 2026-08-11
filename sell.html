@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sell your item — Technologia</title>
+  <meta name="description" content="List your used sensors, parts and gadgets for sale on Technologia.">
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="sell.css">
+  <script>window.tgImgErr=function(el){el.onerror=null;el.style.background='linear-gradient(150deg,#182238,#0b0e17)';el.removeAttribute('src');};</script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="Home.html"><span class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.6v2"/><circle cx="12" cy="2" r="1" fill="currentColor" stroke="none"/><rect x="4.5" y="6.6" width="15" height="11.2" rx="4"/><rect x="7.4" y="10.2" width="9.2" height="3.3" rx="1.65" fill="currentColor" stroke="none"/><path d="M2.6 10.9v3M21.4 10.9v3"/><path d="M10 17.8v3M14 17.8v3"/></svg></span>Techno<b>logia</b></a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="Home.html">Home</a>
+        <a href="marketplace.html">Marketplace</a>
+        <a href="chat.html">Chat</a>
+        <a href="discussion.html">Discuss</a>
+        <a href="sell.html" class="active">Sell</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="icon-btn js-auth-link" href="login.html" aria-label="Account"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+        <button class="icon-btn nav-toggle" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="Home.html">Home</a> / <span>Sell</span></nav>
+    <div class="page-head"><span class="eyebrow">Marketplace</span><h1>Sell your tech in minutes</h1><p>List a used sensor, part or gadget. Your item appears in the shop straight away.</p></div>
+
+    <div class="section section--compact layout">
+      <div class="panel">
+        <h2>Item details</h2>
+        <p class="sub">Fields marked with * are required.</p>
+        <form id="sellForm" novalidate>
+          <div class="form-grid">
+            <div class="field-group full"><label for="title">Item title *</label><input class="field" type="text" id="title" name="title" placeholder="e.g. Used Arduino Uno R3"><span class="err" data-for="title"></span></div>
+            <div class="field-group"><label for="category">Category *</label><select class="field" id="category" name="category"><option value="">Choose one…</option><option>Sensors</option><option>Mechanical</option><option>Gadgets</option><option>IoT</option></select><span class="err" data-for="category"></span></div>
+            <div class="field-group"><label for="condition">Condition *</label><select class="field" id="condition" name="condition"><option value="">Choose one…</option><option>Like New</option><option>Good</option><option>Fair</option></select><span class="err" data-for="condition"></span></div>
+            <div class="field-group"><label for="price">Selling price (£) *</label><input class="field" type="number" id="price" name="price" min="1" placeholder="e.g. 18.99"><span class="err" data-for="price"></span></div>
+            <div class="field-group"><label for="old">Original price (£)</label><input class="field" type="number" id="old" name="old" min="0" placeholder="Optional, e.g. 29.99"><span class="hint">Shown as a strike-through discount.</span></div>
+            <div class="field-group"><label for="brand">Brand</label><input class="field" type="text" id="brand" name="brand" placeholder="Optional"></div>
+            <div class="field-group"><label for="phone">Phone number *</label><input class="field" type="tel" id="phone" name="phone" placeholder="e.g. 07700900000"><span class="err" data-for="phone"></span></div>
+            <div class="field-group full"><label for="desc">Description *</label><textarea class="field" id="desc" name="desc" placeholder="Describe the item, its condition, and what's included (min 20 characters)."></textarea><span class="err" data-for="desc"></span></div>
+            <div class="field-group full">
+              <label>Photos</label>
+              <div class="uploader" id="drop">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="upload-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+                <div>Click to upload or drag photos here</div>
+                <span class="hint">PNG or JPG. A stock photo is used if none added.</span>
+                <input type="file" id="files" accept="image/*" multiple hidden>
+              </div>
+              <div class="preview-strip" id="previews"></div>
+            </div>
+            <div class="field-group full"><label class="label-check"><input type="checkbox" class="label-check-input"> I confirm this item is mine and the details are accurate.</label><span class="err" data-for="terms"></span></div>
+          </div>
+          <button class="btn btn-primary btn-block mt-md" type="submit">Publish listing</button>
+        </form>
+      </div>
+
+      <aside>
+        <div class="panel summary mb-md">
+          <h2 class="text-sm">Live preview</h2>
+          <p class="sub">This is how buyers will see your item.</p>
+          <div class="product-grid preview-single" id="preview"></div>
+        </div>
+        <div class="panel">
+          <h2 class="text-xs">Tips for a fast sale</h2>
+          <ul class="text-xxs">
+            <li>Use a clear, specific title</li>
+            <li>Be honest about wear and faults</li>
+            <li>Price a little below retail</li>
+            <li>Mention what's included in the box</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="wrap"><div class="foot-bottom foot-bottom--minimal"><span>&copy; 2026 Technologia. Built as a demonstration project.</span><span><a href="Home.html">Home</a> · <a href="marketplace.html">Marketplace</a> · <a href="chat.html">Chat</a> · <a href="discussion.html">Discuss</a></span></div></div></footer>
+
+  <div class="toast-host"></div>
+<script src="jquery.min.js"></script>
+<script src="base.js"></script>
+<script src="sell.js"></script>
+</body>
+</html>
