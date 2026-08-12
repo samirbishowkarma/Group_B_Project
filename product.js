@@ -29,10 +29,8 @@
       return TG.imgTag(product, 900, 900, "product-photo");
     }
 
-    var keywords = product.img || product.cat || "technology";
-    var lock = product.lock || 41;
-    var source = "https://loremflickr.com/900/900/" + encodeURIComponent(keywords) + "?lock=" + lock;
-    return '<img class="product-photo" src="' + source + '" alt="' + clean(product.name, "Product image") + '" loading="lazy">';
+    return '<img class="product-photo" src="assets/images/product-fallback.webp" alt="' +
+      clean(product.name, "Product image") + '" width="900" height="900" loading="lazy" decoding="async" onerror="tgImgErr(this)">';
   }
 
   var WISHLIST_KEY = "tg_wish";

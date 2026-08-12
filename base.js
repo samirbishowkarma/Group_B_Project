@@ -104,16 +104,34 @@ TG.currentUser = function () {
     }, 2800);
   };
 
+  var productImages = {
+    Sensors: "assets/images/category-sensors.webp",
+    Mechanical: "assets/images/category-mechanical.webp",
+    Gadgets: "assets/images/category-gadgets.webp",
+    IoT: "assets/images/category-iot.webp"
+  };
+
+  TG.productImage = function (product) {
+    if (product.photos && product.photos.length) return product.photos[0];
+    if (product.image) return product.image;
+    return productImages[product.cat] || "assets/images/product-fallback.webp";
+  };
+
+  TG.imgTag = function (product, width, height, className) {
+    return '<img class="' + (className || '') + '" src="' + TG.productImage(product) + '" alt="' +
+      (product.name || 'Product image') + '" width="' + (width || 500) + '" height="' + (height || 400) +
+      '" loading="lazy" decoding="async" onerror="tgImgErr(this)">';
+  };
+
   TG.cardHTML = function (p) {
     var tagClass = p.cond && p.cond.toLowerCase() === 'new' ? 'new' : 'used';
     var tagLabel = p.cond ? p.cond : 'Product';
     var oldPrice = p.old ? '<span class="old">$' + p.old.toFixed(2) + '</span>' : '';
     var rating = p.rating ? '<div class="rating">★ ' + p.rating.toFixed(1) + ' <span>(' + (Math.round(p.rating * 35) + 15) + ' reviews)</span></div>' : '';
-    var imageLock = p.lock || Math.floor(Math.random() * 200 + 30);
-    var imageUrl = 'https://loremflickr.com/500/400/' + encodeURIComponent(p.img) + '?lock=' + imageLock;
+    var imageUrl = TG.productImage(p);
     return '<article class="card reveal">' +
       '<a class="thumb" href="product.html?id=' + encodeURIComponent(p.id) + '">' +
-        '<img src="' + imageUrl + '" alt="' + (p.name || 'Product image') + '">' +
+        '<img src="' + imageUrl + '" alt="' + (p.name || 'Product image') + '" width="500" height="400" loading="lazy" decoding="async" onerror="tgImgErr(this)">' +
       '</a>' +
       (p.cond ? '<span class="tag ' + tagClass + '">' + tagLabel + '</span>' : '') +
       '<button class="wish" type="button" aria-label="Add to wishlist">' +

@@ -115,18 +115,10 @@ cd Group_B_Project
 
 Open the folder in VS Code and open `Home.html`. We usually use the **Live Server** extension since it helps with testing links between different pages. There are no packages to install.
 
-The internet connection is required for the image placeholders of the products. Everything else works locally in the browser.
+Everything needed to display the demo is included in the repository, so the pages and product images work locally without an internet connection.
 ## Source of images
 
-Product images are not stored in this repository. The JavaScript fetches them from the [LoremFlickr](https://loremflickr.com/) site at the time of page loading. URLs for the images are constructed by JavaScript based on product keywords like `temperature,sensor` or `arduino,board`.
-
-For instance:
-
-```text
-https://loremflickr.com/500/400/temperature,sensor?lock=72
-```
-
-Parameters `500` and `400` specify the image dimensions. Product card requests the `500 x 400` image, while product details page requests the bigger `900 x 900` image. `Lock` parameter makes sure that the same product will have the same placeholder image after refreshing the page.
+The homepage and product images were generated specifically for this student project and are stored in `assets/images`. Keeping the WebP files in the repository means the site does not rely on temporary third-party image links. The shared JavaScript selects an image for each product category, while photos uploaded through the selling form still take priority for that listing.
 
 ## The storage of the data
 
