@@ -11,7 +11,7 @@
       ];
       var $cg = $("#catGrid");
       cats.forEach(function (c, i) {
-        $cg.append('<a class="cat-card reveal" href="shop.html?cat=' + c.name + '"><img src="https://loremflickr.com/500/400/' + encodeURIComponent(c.img) + '?lock=' + (60 + i) + '" alt="" data-cat="' + c.name + '" onerror="tgImgErr(this)"><span class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="ic">' + c.ic + '</span><h3>' + c.name + '</h3><p>' + c.desc + '</p></a>');
+        $cg.append('<a class="cat-card reveal" href="marketplace.html?cat=' + encodeURIComponent(c.name) + '"><img src="https://loremflickr.com/500/400/' + encodeURIComponent(c.img) + '?lock=' + (60 + i) + '" alt="" data-cat="' + c.name + '" onerror="tgImgErr(this)"><span class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="ic">' + c.ic + '</span><h3>' + c.name + '</h3><p>' + c.desc + '</p></a>');
       });
 
       var picks = TG.catalog().filter(function (p) { return ["s1","m1","g1","i1","g2","s3","i4","m3"].indexOf(p.id) > -1; });
@@ -28,6 +28,82 @@
         ];
       }
       listings.slice(0, 4).forEach(function (p) { $r.append(TG.cardHTML(p)); });
+
+      var WISHLIST_KEY = "tg_wishlist";
+
+      function readWishlist() {
+        try {
+          return JSON.parse(localStorage.getItem(WISHLIST_KEY) || "[]");
+        } catch (err) {
+          return [];
+        }
+      }
+
+      function saveWishlist(items) {
+        try {
+          localStorage.setItem(WISHLIST_KEY, JSON.stringify(items));
+          return true;
+        } catch (err) {
+          TG.toast("Your browser could not save the wishlist", "err");
+          return false;
+        }
+      }
+
+      function productId($card) {
+        var href = $card.find("a.thumb").attr("href") || "";
+        return new URL(href, window.location.href).searchParams.get("id");
+      }
+
+      function updateWishlistButton($button, saved) {
+        $button.toggleClass("on", saved);
+        $button.attr("aria-pressed", saved ? "true" : "false");
+        $button.attr("aria-label", saved ? "Remove from wishlist" : "Add to wishlist");
+      }
+
+      function prepareProductCards() {
+        var saved = readWishlist();
+
+        $("#featured .card, #recent .card").each(function () {
+          var $card = $(this);
+          var id = productId($card);
+          var name = $card.find("h3").text().trim() || "this product";
+
+          updateWishlistButton($card.find(".wish"), saved.indexOf(id) > -1);
+          $card.find(".add-btn")
+            .attr("aria-label", "Chat about " + name)
+            .attr("title", "Chat with the seller")
+            .html('<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>');
+        });
+
+        $("#featured img, #recent img").each(function () {
+          var image = this;
+          image.onerror = function () { window.tgImgErr(image); };
+          if (image.complete && !image.naturalWidth) window.tgImgErr(image);
+        });
+      }
+
+      prepareProductCards();
+
+      $("#featured, #recent").on("click", ".wish", function () {
+        var $button = $(this);
+        var id = productId($button.closest(".card"));
+        var saved = readWishlist();
+        var position = saved.indexOf(id);
+
+        if (position > -1) saved.splice(position, 1);
+        else saved.push(id);
+
+        if (saveWishlist(saved)) {
+          var isSaved = position === -1;
+          updateWishlistButton($button, isSaved);
+          TG.toast(isSaved ? "Saved to your wishlist" : "Removed from your wishlist", "ok");
+        }
+      });
+
+      $("#featured, #recent").on("click", ".add-btn", function () {
+        var id = productId($(this).closest(".card"));
+        window.location.href = "chat.html?product=" + encodeURIComponent(id);
+      });
 
       if (window.tgObserve) window.tgObserve();
 

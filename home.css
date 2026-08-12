@@ -294,6 +294,30 @@
   opacity: 0.7;
 }
 
+.cat-card.has-image-fallback {
+  background:
+    radial-gradient(circle at 75% 15%, rgba(45, 212, 255, 0.18), transparent 42%),
+    linear-gradient(145deg, #161d2d, #0b0e17);
+}
+
+.image-unavailable {
+  display: none;
+}
+
+.card .thumb.has-image-fallback::before {
+  content: "Image unavailable";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--faint);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  background:
+    radial-gradient(circle at 70% 20%, rgba(139, 92, 255, 0.22), transparent 38%),
+    linear-gradient(145deg, #182238, #0b0e17);
+}
+
 .cat-card .ic {
   width: 46px;
   height: 46px;

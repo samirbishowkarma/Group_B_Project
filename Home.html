@@ -6,8 +6,8 @@
   <title>Technologia — Sensors, Robotics, Gadgets & IoT Marketplace</title>
   <meta name="description" content="Buy new and used sensors, mechanical parts, gadgets and IoT devices. List what you no longer need and sell it fast on Technologia.">
   <link rel="stylesheet" href="base.css">
-  <link rel="stylesheet" href="home.css">
-  <script>window.tgImgErr=function(el){el.onerror=null;el.style.background='linear-gradient(150deg,#182238,#0b0e17)';el.removeAttribute('src');};</script>
+  <link rel="stylesheet" href="home.css?v=2">
+  <script>window.tgImgErr=function(el){el.onerror=null;el.classList.add('image-unavailable');if(el.parentElement){el.parentElement.classList.add('has-image-fallback');}el.removeAttribute('src');};</script>
 </head>
 <body>
   <header class="site-header">
@@ -28,7 +28,6 @@
         <button class="icon-btn nav-toggle" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
       </div>
     </div>
-
   </header>
 
   <main>
@@ -103,7 +102,7 @@
       <div class="wrap">
         <div class="section-head reveal">
           <div><span class="eyebrow">From the community</span><h2>Recently listed by sellers</h2><p>Fresh pre-loved gear posted on the marketplace.</p></div>
-          <a class="btn btn-ghost btn-sm" href="shop.html?cond=used">See used items</a>
+          <a class="btn btn-ghost btn-sm" href="marketplace.html?cond=used">See used items</a>
         </div>
         <div class="product-grid" id="recent"></div>
       </div>
@@ -132,6 +131,6 @@
   <div class="toast-host"></div>
 <script src="jquery.min.js"></script>
 <script src="base.js"></script>
-<script src="home.js"></script>
+<script src="home.js?v=2"></script>
 </body>
 </html>
