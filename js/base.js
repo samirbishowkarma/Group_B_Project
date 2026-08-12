@@ -105,16 +105,16 @@ TG.currentUser = function () {
   };
 
   var productImages = {
-    Sensors: "assets/images/category-sensors.webp",
-    Mechanical: "assets/images/category-mechanical.webp",
-    Gadgets: "assets/images/category-gadgets.webp",
-    IoT: "assets/images/category-iot.webp"
+    Sensors: "../assets/images/category-sensors.webp",
+    Mechanical: "../assets/images/category-mechanical.webp",
+    Gadgets: "../assets/images/category-gadgets.webp",
+    IoT: "../assets/images/category-iot.webp"
   };
 
   TG.productImage = function (product) {
     if (product.photos && product.photos.length) return product.photos[0];
     if (product.image) return product.image;
-    return productImages[product.cat] || "assets/images/product-fallback.webp";
+    return productImages[product.cat] || "../assets/images/product-fallback.webp";
   };
 
   TG.imgTag = function (product, width, height, className) {

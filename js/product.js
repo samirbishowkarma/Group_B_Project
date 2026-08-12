@@ -29,7 +29,7 @@
       return TG.imgTag(product, 900, 900, "product-photo");
     }
 
-    return '<img class="product-photo" src="assets/images/product-fallback.webp" alt="' +
+    return '<img class="product-photo" src="../assets/images/product-fallback.webp" alt="' +
       clean(product.name, "Product image") + '" width="900" height="900" loading="lazy" decoding="async" onerror="tgImgErr(this)">';
   }
 
@@ -78,7 +78,7 @@
       '<div class="product-missing">' +
         '<h1 id="productTitle">We couldn\'t find that product</h1>' +
         '<p>It may have been removed, or the link may be out of date.</p>' +
-        '<a class="btn btn-primary" href="shop.html">Back to the shop</a>' +
+        '<a class="btn btn-primary" href="marketplace.html">Back to the shop</a>' +
       '</div>'
     );
   }

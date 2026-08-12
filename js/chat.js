@@ -1,4 +1,4 @@
-/* Chat page - works with the current root-level base.js without changing it. */
+/* Chat page - works with the shared base.js without changing it. */
 (function ($) {
   "use strict";
 

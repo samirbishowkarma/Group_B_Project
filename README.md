@@ -17,7 +17,7 @@ Our project is currently a prototype of front-end project developed using HTML, 
 ## Architecture Diagram
 
 
-![alt text](<Screenshot 2026-08-04 122048.png>)
+![Technologia architecture diagram](<assets/images/Screenshot 2026-08-04 122048.png>)
 
 ## What we have added
 
@@ -35,7 +35,7 @@ Our project is currently a prototype of front-end project developed using HTML, 
 Product page has the ID of the product that has been extracted from the URL. For example:
 
 ```text
-product.html?id=s1
+html/product.html?id=s1
 ```
 
 It finds the product in the common catalog or in the list of sellers and provides its picture, price, condition, rating, seller, and other information. Besides, it shows several similar items from the same category.
@@ -43,7 +43,7 @@ It finds the product in the common catalog or in the list of sellers and provide
 We decided not to include a cart in this version of the page. If a user likes something, he or she can use the **Chat with seller** button and organize all the details directly with the seller. The link contains the ID of the selected product:
 
 ```text
-chat.html?product=s1
+html/chat.html?product=s1
 ```
 
 The save button keeps the product in a local wishlist, so it will still be there when the page is opened again in the same browser.
@@ -52,51 +52,42 @@ The save button keeps the product in a local wishlist, so it will still be there
 
 | File | What it is used for |
 | --- | --- |
-| `Home.html` | Main landing page |
-| `marketplace.html` | Browsing and filtering marketplace listings |
-| `product.html` | Viewing one product and contacting its seller |
-| `sell.html` | Creating a product listing |
-| `chat.html` | User conversations |
-| `discussion.html` | Community questions, threads and replies |
-| `profile.html` | User details, listings and projects |
-| `login.html` | Signing in |
-| `register.html` | Creating a demo account |
+| `html/Home.html` | Main landing page |
+| `html/marketplace.html` | Browsing and filtering marketplace listings |
+| `html/product.html` | Viewing one product and contacting its seller |
+| `html/sell.html` | Creating a product listing |
+| `html/chat.html` | User conversations |
+| `html/discussion.html` | Community questions, threads and replies |
+| `html/profile.html` | User details, listings and projects |
+| `html/login.html` | Signing in |
+| `html/register.html` | Creating a demo account |
 
 ## File structure
 
-The files are kept in the root of the project rather than separate `css` and `js` folders.
+The front-end files are grouped by type. Pages stay together in `html`, styles in `css`, scripts in `js`, and project images in `assets/images`.
 
 ```text
 Group_B_Project/
-|-- Home.html
-|-- home.css
-|-- home.js
-|-- marketplace.html
-|-- marketplace.css
-|-- product.html
-|-- product.css
-|-- product.js
-|-- sell.html
-|-- sell.css
-|-- sell.js
-|-- chat.html
-|-- chat.css
-|-- discussion.html
-|-- discussion.css
-|-- discussion.js
-|-- profile.html
-|-- profile.css
-|-- profile.js
-|-- login.html
-|-- login.css
-|-- login.js
-|-- register.html
-|-- register.css
-|-- register.js
-|-- base.css
-|-- base.js
-|-- checkout.js
-|-- jquery.min.js
+|-- html/
+|   |-- Home.html
+|   |-- marketplace.html
+|   |-- product.html
+|   |-- sell.html
+|   |-- chat.html
+|   |-- discussion.html
+|   |-- profile.html
+|   |-- login.html
+|   `-- register.html
+|-- css/
+|   |-- base.css
+|   `-- page-specific stylesheets
+|-- js/
+|   |-- jquery.min.js
+|   |-- base.js
+|   |-- checkout.js
+|   `-- page-specific scripts
+|-- assets/
+|   `-- images/
 `-- README.md
 ```
 
@@ -113,7 +104,7 @@ git clone https://github.com/samirbishowkarma/Group_B_Project.git
 cd Group_B_Project
 ```
 
-Open the folder in VS Code and open `Home.html`. We usually use the **Live Server** extension since it helps with testing links between different pages. There are no packages to install.
+Open the folder in VS Code and start `html/Home.html` with the **Live Server** extension. Serving the whole project folder keeps the paths to `css`, `js`, and `assets/images` working correctly. There are no packages to install.
 
 Everything needed to display the demo is included in the repository, so the pages and product images work locally without an internet connection.
 ## Source of images
