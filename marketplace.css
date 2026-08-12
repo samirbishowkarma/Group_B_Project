@@ -50,6 +50,31 @@
   line-height: 1.5;
 }
 
+.wish.saved {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.thumb.has-image-fallback {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #172238, #0b0e17);
+}
+
+.thumb.has-image-fallback::before {
+  content: "Image unavailable";
+  position: relative;
+  z-index: 1;
+  color: var(--faint);
+  font-size: .78rem;
+  letter-spacing: .02em;
+}
+
+.mp-empty {
+  border: 1px dashed var(--line-2);
+  border-radius: var(--radius-sm);
+}
+
 
 
 

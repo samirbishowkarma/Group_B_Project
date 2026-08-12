@@ -6,7 +6,7 @@
   <title>Chat - Technologia</title>
   <meta name="description" content="Direct messaging with other Technologia members.">
   <link rel="stylesheet" href="base.css">
-  <link rel="stylesheet" href="chat.css">
+  <link rel="stylesheet" href="chat.css?v=2">
   <script>window.tgImgErr=function(el){el.onerror=null;el.style.background='linear-gradient(150deg,#182238,#0b0e17)';el.removeAttribute('src');};</script>
 </head>
 <body>
@@ -21,6 +21,7 @@
         <a href="chat.html" class="active">Chat</a>
         <a href="discussion.html">Discuss</a>
         <a href="profile.html">Profile</a>
+        <a href="register.html">Register</a>
       </nav>
       <div class="nav-actions">
         <a class="icon-btn js-auth-link" href="login.html" aria-label="Account" title="Account"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
@@ -38,7 +39,7 @@
       <a class="btn btn-primary btn-sm" href="login.html">Sign In</a>
     </div>
 
-    <div class="chat-layout">
+    <div class="chat-layout" hidden>
       <!-- Sidebar -->
       <aside class="chat-sidebar">
         <div class="chat-sidebar-head">
@@ -86,6 +87,6 @@
   <div class="toast-host"></div>
 <script src="jquery.min.js"></script>
 <script src="base.js"></script>
-<script src="chat.js"></script>
+<script src="chat.js?v=2"></script>
 </body>
 </html>

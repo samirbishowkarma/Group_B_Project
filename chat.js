@@ -136,6 +136,8 @@
       return;
     }
 
+    $page.find(".chat-layout").removeAttr("hidden");
+
     var myEmail = String(session.email).toLowerCase();
 
     function knownUsers() {

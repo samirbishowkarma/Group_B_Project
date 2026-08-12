@@ -1,9 +1,10 @@
 /* discussions.css — Technologia Discussions Page */
 
 .disc-layout { display: grid; grid-template-columns: 380px 1fr; gap: 28px; align-items: start; padding-bottom: 60px; }
+.disc-layout > * { min-width: 0; }
 
 /* ── Sidebar ───────────────────────────────────────────── */
-.disc-sidebar { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 14px; max-height: calc(100vh - 110px); }
+.disc-sidebar { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 14px; max-height: calc(100vh - 110px); min-width: 0; }
 .disc-search { margin-bottom: 2px; }
 .disc-chips { margin-bottom: 4px; }
 .disc-chips .chip { font-size: .82rem; padding: 7px 13px; }
@@ -12,9 +13,10 @@
 .disc-threads::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 9px; }
 
 /* ── Thread Card ────────────────────────────────────────── */
-.disc-thread { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: var(--radius-sm); border: 1px solid transparent; background: rgba(255,255,255,.02); cursor: pointer; transition: background .2s, border-color .2s; }
+.disc-thread { display: flex; gap: 12px; align-items: flex-start; width: 100%; padding: 14px 16px; border-radius: var(--radius-sm); border: 1px solid transparent; background: rgba(255,255,255,.02); color: inherit; font: inherit; text-align: left; cursor: pointer; transition: background .2s, border-color .2s; }
 .disc-thread:hover { background: rgba(255,255,255,.05); border-color: var(--line-2); }
 .disc-thread.active { background: rgba(45,212,255,.06); border-color: rgba(45,212,255,.25); }
+.disc-thread:focus-visible, .upvote-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 .disc-thread .disc-thread-body { flex: 1; min-width: 0; }
 .disc-thread .disc-thread-title { font-weight: 700; font-size: .92rem; line-height: 1.35; margin: 0 0 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .disc-thread .disc-thread-meta { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: var(--faint); }
@@ -88,6 +90,10 @@
   .disc-threads { max-height: 420px; }
 }
 @media (max-width: 720px) {
+  .disc-chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+  .disc-chips .chip { flex: 0 0 auto; }
   .disc-thread { padding: 12px; gap: 10px; }
+  .disc-thread .disc-thread-stats { padding-inline: 7px; }
   .disc-reply-form { flex-direction: column; }
+  .disc-reply-form textarea { width: 100%; }
 }

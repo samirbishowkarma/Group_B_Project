@@ -2,8 +2,93 @@
 (function ($) {
   "use strict";
 
+  /* Page-level storage helpers keep this page compatible with the small
+     base.js used by the current branch. */
+  var TG = window.TG = window.TG || {};
+  var THREAD_KEY = "tg_threads";
+
+  TG.PERSONAS = TG.PERSONAS || {
+    seller: { label: "Seller", color: "#ff7a45" },
+    builder: { label: "Builder", color: "#2dd4ff" },
+    idea: { label: "Idea person", color: "#8b5cff" },
+    student: { label: "Student", color: "#22f5c8" }
+  };
+
+  function readThreads() {
+    try {
+      return JSON.parse(localStorage.getItem(THREAD_KEY)) || [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function writeThreads(items) {
+    try {
+      localStorage.setItem(THREAD_KEY, JSON.stringify(items));
+      return true;
+    } catch (error) {
+      if (typeof TG.toast === "function") TG.toast("Your browser could not save this change", "err");
+      return false;
+    }
+  }
+
+  TG.session = TG.session || function () {
+    if (typeof TG.currentUser === "function") return TG.currentUser();
+    try {
+      return JSON.parse(localStorage.getItem("tg_session")) ||
+        JSON.parse(sessionStorage.getItem("tg_session"));
+    } catch (error) {
+      return null;
+    }
+  };
+
+  TG.threads = TG.threads || readThreads;
+  TG.saveThread = TG.saveThread || function (thread) {
+    var items = readThreads();
+    thread.id = thread.id || "t" + Date.now() + Math.random().toString(36).slice(2, 6);
+    thread.time = thread.time || Date.now();
+    thread.replies = thread.replies || [];
+    items.unshift(thread);
+    return writeThreads(items) ? thread : null;
+  };
+  TG.deleteThread = TG.deleteThread || function (threadId) {
+    return writeThreads(readThreads().filter(function (thread) { return thread.id !== threadId; }));
+  };
+  TG.saveThreadReply = TG.saveThreadReply || function (threadId, reply) {
+    var items = readThreads();
+    var saved = null;
+    items.forEach(function (thread) {
+      if (thread.id !== threadId) return;
+      reply.id = reply.id || "r" + Date.now() + Math.random().toString(36).slice(2, 5);
+      reply.time = reply.time || Date.now();
+      thread.replies = thread.replies || [];
+      thread.replies.push(reply);
+      saved = reply;
+    });
+    return writeThreads(items) ? saved : null;
+  };
+  TG.timeAgo = TG.timeAgo || function (timestamp) {
+    var seconds = Math.max(0, Math.floor((Date.now() - Number(timestamp || 0)) / 1000));
+    if (seconds < 60) return "just now";
+    var minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return minutes + "m ago";
+    var hours = Math.floor(minutes / 60);
+    if (hours < 24) return hours + "h ago";
+    var days = Math.floor(hours / 24);
+    if (days < 7) return days + "d ago";
+    return new Date(timestamp).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  };
+  TG.avatarHTML = TG.avatarHTML || function (name, size, persona) {
+    var safeName = String(name || "?");
+    var colour = (TG.PERSONAS[persona] || TG.PERSONAS.builder).color;
+    var initial = $("<span>").text(safeName.charAt(0).toUpperCase()).html();
+    return '<span class="tg-avatar" style="width:' + size + 'px;height:' + size +
+      'px;background:' + colour + ';">' + initial + '</span>';
+  };
+
   var CATS = ["All", "Help", "Projects", "Show & Tell", "Parts", "Collaboration", "Education"];
   var catClass = function (c) { return c.replace(/[& ]+/g, "-"); };
+  var esc = function (value) { return $("<span>").text(value == null ? "" : String(value)).html(); };
 
   function seedThreads() {
     if (TG.threads().length) return;
@@ -52,20 +137,20 @@
     var sess = TG.session();
 
     // Build category chips
-    CATS.forEach(function (c) { $("#discCatChips").append('<button class="chip' + (c === "All" ? " active" : "") + '" data-cat="' + c + '">' + c + '</button>'); });
+    CATS.forEach(function (c) { $("#discCatChips").append('<button class="chip' + (c === "All" ? " active" : "") + '" type="button" data-cat="' + c + '">' + c + '</button>'); });
 
     function threadListItem(t) {
       var cls = catClass(t.category);
-      return '<div class="disc-thread' + (state.active === t.id ? " active" : "") + '" data-id="' + t.id + '">' +
+      return '<button class="disc-thread' + (state.active === t.id ? " active" : "") + '" type="button" data-id="' + t.id + '">' +
         TG.avatarHTML(t.author, 36, t.persona) +
         '<div class="disc-thread-body">' +
           '<span class="disc-cat-tag ' + cls + '">' + t.category + '</span>' +
-          '<p class="disc-thread-title">' + t.title + '</p>' +
-          '<div class="disc-thread-meta"><span class="author-name">' + t.author + '</span><span>' + TG.timeAgo(t.time) + '</span></div>' +
+          '<p class="disc-thread-title">' + esc(t.title) + '</p>' +
+          '<div class="disc-thread-meta"><span class="author-name">' + esc(t.author) + '</span><span>' + TG.timeAgo(t.time) + '</span></div>' +
         '</div>' +
         '<div class="disc-thread-stats"><span class="stat-num">' + (t.replies || []).length + '</span><span>replies</span></div>' +
         '<div class="disc-thread-stats"><span class="stat-num">' + t.upvotes + '</span><span>votes</span></div>' +
-      '</div>';
+      '</button>';
     }
 
     function renderList() {
@@ -82,16 +167,16 @@
       var p = t.persona && TG.PERSONAS[t.persona] ? TG.PERSONAS[t.persona] : null;
       var html = '<div class="disc-detail">' +
         '<div class="cat-row"><span class="disc-cat-tag ' + cls + '">' + t.category + '</span></div>' +
-        '<h2>' + t.title + '</h2>' +
+        '<h2>' + esc(t.title) + '</h2>' +
         '<div class="author">' + TG.avatarHTML(t.author, 38, t.persona) +
-          '<span class="author-name">' + t.author + '</span>' +
-          (p ? '<span class="persona-badge" style="background:' + p.color + '22;color:' + p.color + ';">' + p.label + '</span>' : '') +
+          '<span class="author-name">' + esc(t.author) + '</span>' +
+          (p ? '<span class="persona-badge" style="background:' + p.color + '22;color:' + p.color + ';">' + esc(p.label) + '</span>' : '') +
           '<span class="author-time">' + TG.timeAgo(t.time) + '</span>' +
         '</div>' +
-        '<div class="body">' + t.content + '</div>' +
-        '<div class="tags">' + (t.tags || []).map(function (tag) { return '<span class="disc-cat-tag Education">' + tag + '</span>'; }).join("") + '</div>' +
+        '<div class="body">' + esc(t.content) + '</div>' +
+        '<div class="tags">' + (t.tags || []).map(function (tag) { return '<span class="disc-cat-tag Education">' + esc(tag) + '</span>'; }).join("") + '</div>' +
         '<div class="actions">' +
-          '<button class="upvote-btn' + (state.upvoted[t.id] ? " voted" : "") + '" data-type="thread" data-id="' + t.id + '">' +
+          '<button class="upvote-btn' + (state.upvoted[t.id] ? " voted" : "") + '" type="button" data-type="thread" data-id="' + t.id + '">' +
             '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>' + t.upvotes +
           '</button>' +
           '<span style="color:var(--faint);font-size:.85rem;">' + (t.replies || []).length + ' repl' + ((t.replies || []).length === 1 ? 'y' : 'ies') + '</span>' +
@@ -101,11 +186,11 @@
         var rp = r.persona && TG.PERSONAS[r.persona] ? TG.PERSONAS[r.persona] : null;
         html += '<div class="disc-reply" data-rid="' + r.id + '">' + TG.avatarHTML(r.author, 32, r.persona) +
           '<div class="reply-body">' +
-            '<div class="reply-meta"><span class="author-name">' + r.author + '</span>' +
-            (rp ? '<span class="persona-badge" style="background:' + rp.color + '22;color:' + rp.color + ';"><a href="profile.html">' + rp.label + '</a></span>' : '') +
+            '<div class="reply-meta"><span class="author-name">' + esc(r.author) + '</span>' +
+            (rp ? '<span class="persona-badge" style="background:' + rp.color + '22;color:' + rp.color + ';"><a href="profile.html">' + esc(rp.label) + '</a></span>' : '') +
             '<span class="author-time">' + TG.timeAgo(r.time) + '</span></div>' +
-            '<div class="reply-text">' + r.content + '</div>' +
-            '<div class="reply-actions"><button class="upvote-btn' + (state.replyUpvoted[t.id + ":" + r.id] ? " voted" : "") + '" data-type="reply" data-tid="' + t.id + '" data-rid="' + r.id + '">' +
+            '<div class="reply-text">' + esc(r.content) + '</div>' +
+            '<div class="reply-actions"><button class="upvote-btn' + (state.replyUpvoted[t.id + ":" + r.id] ? " voted" : "") + '" type="button" data-type="reply" data-tid="' + t.id + '" data-rid="' + r.id + '">' +
               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>' + r.upvotes +
             '</button></div>' +
           '</div></div>';
@@ -113,7 +198,7 @@
       html += '</div>' +
         '<div class="disc-reply-form">' + TG.avatarHTML(sess ? sess.name : "You", 32, sess ? sess.persona : "builder") +
           '<textarea class="field" id="replyText" rows="3" placeholder="Write a reply…"></textarea>' +
-          '<button class="btn btn-primary btn-sm" id="replyBtn" style="align-self:flex-end;">Reply</button>' +
+          '<button class="btn btn-primary btn-sm" id="replyBtn" type="button" style="align-self:flex-end;">Reply</button>' +
         '</div></div>';
       $("#discDetail").html(html).show();
       $("#discEmpty").hide();
