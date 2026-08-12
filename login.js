@@ -30,7 +30,7 @@
         ok &= setErr("rg-confirm", confirm === pass && confirm.length ? "" : "Passwords do not match.");
         if (!ok) return;
         if (!TG.registerUser({ name: name, email: email, pass: pass })) { setErr("rg-email", "An account with this email already exists."); TG.toast("Email already registered", "err"); return; }
-        TG.login(email, pass); TG.toast("Account created! Redirecting\u2026", "ok"); setTimeout(function () { location.href = "index.html"; }, 900);
+        TG.login(email, pass); TG.toast("Account created! Redirecting\u2026", "ok"); setTimeout(function () { location.href = "Home.html"; }, 900);
       });
     }
   });

@@ -87,10 +87,16 @@
 
 .chat-item {
   display: flex;
+  width: 100%;
   align-items: center;
   gap: 12px;
   padding: 12px;
+  border: 0;
   border-radius: var(--radius-sm);
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font: inherit;
   cursor: pointer;
   transition: background .15s;
 }
@@ -137,6 +143,7 @@
   backdrop-filter: blur(10px);
 }
 .chat-header-info { flex: 1; }
+#chatHeaderInfo { flex: 1; }
 .chat-header-name {
   font-weight: 700;
   font-size: 1rem;
@@ -331,6 +338,28 @@
   user-select: none;
 }
 
+/* Product context passed from product.html?product=... */
+.chat-product-context {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 11px 18px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(45, 212, 255, .06);
+  color: var(--muted);
+  font-size: .85rem;
+}
+.chat-product-context[hidden] { display: none; }
+.chat-product-context strong { color: var(--ink); }
+.chat-product-context a { color: var(--brand); font-weight: 700; white-space: nowrap; }
+.chat-product-context a:hover { text-decoration: underline; }
+
+.chat-item:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px;
+}
+
 /* ── Responsive: Mobile ───────────────────────────────── */
 @media (max-width: 720px) {
   .chat-layout {
@@ -354,6 +383,11 @@
   }
   .chat-bubble {
     max-width: 82%;
+  }
+  .chat-product-context {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
   }
 }
 

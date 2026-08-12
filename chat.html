@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat — Technologia</title>
+  <title>Chat - Technologia</title>
   <meta name="description" content="Direct messaging with other Technologia members.">
   <link rel="stylesheet" href="base.css">
   <link rel="stylesheet" href="chat.css">
@@ -42,7 +42,7 @@
       <!-- Sidebar -->
       <aside class="chat-sidebar">
         <div class="chat-sidebar-head">
-          <h2>Messages <button id="chatNewBtn" class="chat-new-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> New</button></h2>
+          <h2>Messages <button id="chatNewBtn" class="chat-new-btn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> New</button></h2>
           <div class="chat-search">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
             <input id="chatSearch" type="text" placeholder="Search conversations..." aria-label="Search conversations">
@@ -51,7 +51,7 @@
         <div id="chatList" class="chat-list"></div>
         <div id="chatStartForm" class="chat-start-form">
           <input id="newChatName" class="field" type="text" placeholder="Enter user name..." aria-label="User name">
-          <button id="newChatSubmit" class="btn btn-primary btn-sm">Start Conversation</button>
+          <button id="newChatSubmit" class="btn btn-primary btn-sm" type="button">Start Conversation</button>
         </div>
       </aside>
 
@@ -63,10 +63,11 @@
           </button>
           <div id="chatHeaderInfo"></div>
         </div>
-        <div id="chatMessages" class="chat-messages"></div>
+        <div id="chatProductContext" class="chat-product-context" hidden></div>
+        <div id="chatMessages" class="chat-messages" aria-live="polite"></div>
         <div class="chat-input">
-          <input id="chatInput" type="text" placeholder="Type a message..." aria-label="Message input">
-          <button id="chatSendBtn" class="chat-send-btn" aria-label="Send message">
+          <input id="chatInput" type="text" maxlength="1000" placeholder="Type a message..." aria-label="Message input">
+          <button id="chatSendBtn" class="chat-send-btn" type="button" aria-label="Send message">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
           </button>
         </div>
